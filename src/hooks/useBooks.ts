@@ -1,11 +1,17 @@
 import useSWR from "swr";
-import { fetcher } from "@/lib/fetcher";
+import axios from "axios";
 
-export function useBooks(queryString: string) {
-    const { data, error, isLoading } = useSWR(queryString, fetcher);
+export const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+export function useBooks(page: number = 1) {
+    const url = `https://gutendex.com/books?page=${page}`;
+    const { data, error, isLoading } = useSWR(url, fetcher);
+
     return {
-        books: data?.docs || [],
+        books: Array.isArray(data?.results) ? data.results : [],
         isLoading,
         isError: !!error,
+        next: data?.next, // برای صفحه‌بندی
+        previous: data?.previous,
     };
 }

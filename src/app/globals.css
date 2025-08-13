@@ -1,26 +1,27 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Custom fonts and body */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    font-family: "Inter", "Segoe UI", "Tahoma", "Arial", sans-serif;
+    background-color: #f6f8fa;
+}
+
+.dark body {
+    background-color: #18181b;
+}
+
+/* For placeholder image styling */
+img[alt="placeholder"] {
+    background: repeating-linear-gradient(
+        45deg,
+        #e0e7ff,
+        #e0e7ff 10px,
+        #c7d2fe 10px,
+        #c7d2fe 20px
+    );
+}
+
+/* Remove extra outline on focus for buttons */
+button:focus {
+    outline: none;
 }

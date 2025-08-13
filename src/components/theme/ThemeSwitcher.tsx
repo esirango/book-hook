@@ -15,9 +15,10 @@ export default function ThemeSwitcher() {
     return (
         <button
             onClick={() => setDark((d) => !d)}
-            className="p-2 rounded bg-gray-200 dark:bg-gray-700 fixed bottom-4 left-4 z-50"
+            className="p-2 rounded-full bg-white dark:bg-gray-700 border dark:border-gray-600 shadow fixed bottom-6 right-6 z-50 transition-all hover:scale-110"
+            aria-label="Switch theme"
         >
-            {dark ? "🌙 دارک مود" : "🌞 لایت مود"}
+            {dark ? "🌙" : "🌞"}
         </button>
     );
 }

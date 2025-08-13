@@ -15,52 +15,52 @@ export default function BookFilters() {
     };
 
     return (
-        <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded flex flex-wrap gap-2">
+        <div className="bg-white dark:bg-gray-900 p-5 rounded-xl flex flex-wrap gap-3 shadow mb-6">
             <input
                 name="search"
                 type="text"
-                placeholder="جستجوی عنوان یا متن"
-                className="p-2 rounded border"
+                placeholder="Search by title or text"
+                className="p-2 rounded-md border border-gray-300 dark:border-gray-700 flex-1"
                 value={localFilters.search}
                 onChange={handleChange}
             />
             <input
                 name="author"
                 type="text"
-                placeholder="نویسنده"
-                className="p-2 rounded border"
+                placeholder="Author"
+                className="p-2 rounded-md border border-gray-300 dark:border-gray-700 flex-1"
                 value={localFilters.author}
                 onChange={handleChange}
             />
             <input
                 name="genre"
                 type="text"
-                placeholder="ژانر"
-                className="p-2 rounded border"
+                placeholder="Genre"
+                className="p-2 rounded-md border border-gray-300 dark:border-gray-700 flex-1"
                 value={localFilters.genre}
                 onChange={handleChange}
             />
             <input
                 name="year"
                 type="number"
-                placeholder="سال انتشار"
-                className="p-2 rounded border"
+                placeholder="Year"
+                className="p-2 rounded-md border border-gray-300 dark:border-gray-700 w-28"
                 value={localFilters.year}
                 onChange={handleChange}
             />
             <input
                 name="country"
                 type="text"
-                placeholder="کد زبان (en/fa/...)"
-                className="p-2 rounded border"
+                placeholder="Language code (en/fa/...)"
+                className="p-2 rounded-md border border-gray-300 dark:border-gray-700 w-32"
                 value={localFilters.country}
                 onChange={handleChange}
             />
             <button
-                className="bg-blue-600 text-white px-4 py-2 rounded"
+                className="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-indigo-700 transition"
                 onClick={applyFilters}
             >
-                اعمال فیلترها
+                Filter
             </button>
         </div>
     );
