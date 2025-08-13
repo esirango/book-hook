@@ -1,30 +1,25 @@
-import Link from "next/link";
-
 export default function BookCard({ book }: { book: any }) {
-    const coverUrl = book.formats?.["image/jpeg"] || "/placeholder.png";
-    const authors =
-        book.authors?.map((a: any) => a.name).join(", ") || "Unknown Author";
-
     return (
-        <Link href={`/books/${book.id}`}>
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:ring-4 hover:ring-indigo-400 dark:hover:ring-indigo-300 transition w-full flex flex-col border border-gray-200 dark:border-gray-700">
-                <img
-                    src={coverUrl}
-                    alt={book.title}
-                    className="h-48 object-cover w-full bg-gray-100 dark:bg-gray-700"
-                />
-                <div className="p-4 flex flex-col gap-1">
-                    <div className="font-bold text-lg truncate text-gray-900 dark:text-gray-100">
-                        {book.title}
-                    </div>
-                    <div className="text-sm truncate text-gray-500 dark:text-gray-400">
-                        {authors}
-                    </div>
-                    <div className="text-xs mt-1 text-indigo-600 dark:text-indigo-300">
-                        ID: {book.id}
-                    </div>
-                </div>
+        <div className="border rounded-lg shadow p-4 bg-white flex flex-col">
+            <h3 className="font-bold text-lg mb-2">
+                {book.title || "Untitled"}
+            </h3>
+            <div className="text-sm text-gray-600 mb-2">
+                {book.author_name?.join(", ") || "Unknown author"}
             </div>
-        </Link>
+            <div className="text-xs text-gray-500 mb-2">
+                {book.first_publish_year
+                    ? `Published: ${book.first_publish_year}`
+                    : ""}
+            </div>
+            <a
+                href={`https://openlibrary.org${book.key}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-auto text-indigo-600 hover:underline"
+            >
+                More details
+            </a>
+        </div>
     );
 }

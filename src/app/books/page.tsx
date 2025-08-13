@@ -1,20 +1,53 @@
 "use client";
-import BookCard from "@/components/BookCard";
 import { useState } from "react";
+import BookFilters from "@/components/BookFilters";
+import BookCard from "@/components/BookCard";
 import { useBooks } from "@/hooks/useBooks";
 
+function buildOpenLibraryQuery(
+    filters: Record<string, string>,
+    page: number = 1
+) {
+    let q = "";
+
+    if (filters.title && filters.author) {
+        q = `${filters.title} ${filters.author}`;
+    } else if (filters.title) {
+        q = filters.title;
+    } else if (filters.author) {
+        q = filters.author;
+    } else {
+        q = "the"; // پیش‌فرض وقتی فیلتر خالیه
+    }
+
+    return `https://openlibrary.org/search.json?page=${page}&q=${encodeURIComponent(
+        q
+    )}`;
+}
+
 export default function BooksPage() {
+    const [filters, setFilters] = useState<Record<string, string>>({});
     const [page, setPage] = useState(1);
-    const { books, isLoading, isError, next, previous } = useBooks(page);
+
+    const url = buildOpenLibraryQuery(filters, page);
+    const { books, isLoading, isError, total } = useBooks(url);
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-6 text-indigo-700 dark:text-indigo-300">
-                All Books
+            <BookFilters
+                onFilterChange={(newFilters) => {
+                    setFilters(newFilters);
+                    setPage(1);
+                }}
+            />
+
+            <h2 className="text-2xl font-bold mb-6 text-indigo-700">
+                Open Library Books
             </h2>
+
             {isLoading && (
                 <div className="flex justify-center items-center h-32">
-                    <span className="text-indigo-600 dark:text-indigo-300 font-semibold text-lg animate-pulse">
+                    <span className="text-indigo-600 font-semibold text-lg animate-pulse">
                         Loading books...
                     </span>
                 </div>
@@ -24,28 +57,30 @@ export default function BooksPage() {
                     Error loading books!
                 </div>
             )}
+
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4">
-                {books?.map((book: any) => (
-                    <BookCard key={book.id} book={book} />
+                {books.map((book: any) => (
+                    <BookCard key={book.key} book={book} />
                 ))}
             </div>
-            {/* Pagination Controls */}
+
             <div className="flex justify-center gap-4 mt-8">
                 <button
                     onClick={() => setPage(page - 1)}
-                    disabled={!previous || page === 1}
-                    className="px-4 py-2 rounded bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-200 font-bold disabled:opacity-50"
+                    disabled={page === 1}
+                    className="px-4 py-2 rounded bg-gray-300 text-gray-700 font-bold disabled:opacity-50"
                 >
                     Previous
                 </button>
                 <button
                     onClick={() => setPage(page + 1)}
-                    disabled={!next}
+                    disabled={page * 100 >= total}
                     className="px-4 py-2 rounded bg-indigo-600 text-white font-bold disabled:opacity-50"
                 >
                     Next
                 </button>
             </div>
+
             {!isLoading && books.length === 0 && (
                 <div className="text-center text-gray-500 mt-12">
                     No books found.
