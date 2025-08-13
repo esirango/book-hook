@@ -1,7 +1,7 @@
 export default function BookCard({ book }: { book: any }) {
     const coverUrl = book.cover_i
-        ? `https://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`
-        : "/placeholder-cover.png"; // یه عکس پیش‌فرض در public بذار
+        ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
+        : "/placeholder-cover.png";
 
     return (
         <div className="border rounded-lg shadow p-4 bg-white flex flex-col">
