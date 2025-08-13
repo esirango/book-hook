@@ -1,7 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
-import ThemeSwitcher from "@/components/theme/ThemeSwitcher";
 
 export default function RootLayout({
     children,
@@ -16,7 +15,6 @@ export default function RootLayout({
                     {children}
                 </main>
                 <Footer />
-                <ThemeSwitcher />
             </body>
         </html>
     );

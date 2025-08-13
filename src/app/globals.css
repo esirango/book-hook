@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Custom fonts and body */
 body {
     font-family: "Inter", "Segoe UI", "Tahoma", "Arial", sans-serif;
     background-color: #f6f8fa;
@@ -10,7 +9,6 @@ body {
     background-color: #18181b;
 }
 
-/* For placeholder image styling */
 img[alt="placeholder"] {
     background: repeating-linear-gradient(
         45deg,
@@ -21,7 +19,35 @@ img[alt="placeholder"] {
     );
 }
 
-/* Remove extra outline on focus for buttons */
 button:focus {
     outline: none;
+}
+
+@keyframes light-flicker {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes soft-sway {
+    0%,
+    100% {
+        transform: rotate(-2deg);
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+.animate-light-flicker {
+    animation: light-flicker 1.5s infinite;
+}
+.animate-soft-sway {
+    animation: soft-sway 3s infinite ease-in-out;
 }
