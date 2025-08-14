@@ -2,8 +2,8 @@ import { useState } from "react";
 
 export default function BookCard({ book }: { book: any }) {
     const [coverUrl, setCoverUrl] = useState(
-        book.cover_i
-            ? `https://covers.openlibrary.org/b/id/${book.cover_i}-L.jpg`
+        book.cover_id
+            ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
             : ""
     );
 
@@ -21,7 +21,11 @@ export default function BookCard({ book }: { book: any }) {
                         }}
                     />
                 ) : (
-                    <span className="text-6xl select-none">📖</span>
+                    // placeholder زیباتر
+                    <div className="flex flex-col items-center justify-center text-gray-400">
+                        <span className="text-6xl select-none">📖</span>
+                        <span className="text-xs mt-1">No cover</span>
+                    </div>
                 )}
             </div>
 

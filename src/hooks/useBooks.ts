@@ -5,7 +5,7 @@ import useSWR from "swr";
 export function useBooks(query?: string, page: number = 1) {
     const endpoint = query
         ? `/search.json?q=${query}&page=${page}`
-        : `/subjects/popular.json?limit=20&page=${page}`;
+        : `/subjects/love.json?page=${page}`;
 
     const { data, error, isLoading } = useSWR(endpoint, fetcher);
 
