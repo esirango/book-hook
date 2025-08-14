@@ -1,36 +1,24 @@
+// pages/BooksPage.tsx
 "use client";
 import { useState } from "react";
 import BookFilters from "@/components/BookFilters";
 import BookCard from "@/components/BookCard";
 import { useBooks } from "@/hooks/useBooks";
 
-function buildOpenLibraryQuery(
-    filters: Record<string, string>,
-    page: number = 1
-) {
-    let q = "";
-
-    if (filters.title && filters.author) {
-        q = `${filters.title} ${filters.author}`;
-    } else if (filters.title) {
-        q = filters.title;
-    } else if (filters.author) {
-        q = filters.author;
-    } else {
-        q = "the"; // پیش‌فرض وقتی فیلتر خالیه
-    }
-
-    return `https://openlibrary.org/search.json?page=${page}&q=${encodeURIComponent(
-        q
-    )}`;
+function buildOpenLibraryQuery(filters: Record<string, string>) {
+    if (filters.title && filters.author)
+        return `${filters.title} ${filters.author}`;
+    if (filters.title) return filters.title;
+    if (filters.author) return filters.author;
+    return "";
 }
 
 export default function BooksPage() {
     const [filters, setFilters] = useState<Record<string, string>>({});
     const [page, setPage] = useState(1);
 
-    const url = buildOpenLibraryQuery(filters, page);
-    const { books, isLoading, isError, total } = useBooks(url);
+    const query = buildOpenLibraryQuery(filters);
+    const { books, isLoading, isError, total } = useBooks(query, page);
 
     return (
         <div>
@@ -52,6 +40,7 @@ export default function BooksPage() {
                     </span>
                 </div>
             )}
+
             {isError && (
                 <div className="text-red-600 font-semibold text-center mt-6">
                     Error loading books!
@@ -66,15 +55,15 @@ export default function BooksPage() {
 
             <div className="flex justify-center gap-4 mt-8">
                 <button
-                    onClick={() => setPage(page - 1)}
+                    onClick={() => setPage((p) => Math.max(p - 1, 1))}
                     disabled={page === 1}
                     className="px-4 py-2 rounded bg-gray-300 text-gray-700 font-bold disabled:opacity-50"
                 >
                     Previous
                 </button>
                 <button
-                    onClick={() => setPage(page + 1)}
-                    disabled={page * 100 >= total}
+                    onClick={() => setPage((p) => p + 1)}
+                    disabled={page * 20 >= total}
                     className="px-4 py-2 rounded bg-indigo-600 text-white font-bold disabled:opacity-50"
                 >
                     Next
