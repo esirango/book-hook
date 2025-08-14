@@ -1,4 +1,3 @@
-// pages/BooksPage.tsx
 "use client";
 import { useState } from "react";
 import BookFilters from "@/components/BookFilters";
@@ -18,7 +17,7 @@ export default function BooksPage() {
     const [page, setPage] = useState(1);
 
     const query = buildOpenLibraryQuery(filters);
-    const { books, isLoading, isError, total } = useBooks(query, page);
+    const { books, isLoading, isError, hasNextPage } = useBooks(query, page);
 
     return (
         <div>
@@ -63,7 +62,7 @@ export default function BooksPage() {
                 </button>
                 <button
                     onClick={() => setPage((p) => p + 1)}
-                    disabled={page * 20 >= total}
+                    disabled={!hasNextPage}
                     className="px-4 py-2 rounded bg-indigo-600 text-white font-bold disabled:opacity-50"
                 >
                     Next
