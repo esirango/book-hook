@@ -1,8 +1,13 @@
 "use client";
 import { useBookDetails } from "@/hooks/useBookDetails";
 
-export default function BookDetailPage({ params }: { params: { id: string } }) {
-    const { book, isLoading, isError } = useBookDetails(params.id);
+export default async function BookDetailPage({
+    params,
+}: {
+    params: Promise<{ id: string }>;
+}) {
+    const { id } = await params;
+    const { book, isLoading, isError } = useBookDetails(id);
 
     if (isLoading)
         return (
