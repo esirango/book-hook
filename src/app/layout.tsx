@@ -9,7 +9,11 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className="bg-gray-50 dark:bg-gray-900 min-h-screen relative flex flex-col">
+            <body
+                className="min-h-screen flex flex-col
+               bg-[var(--bg-gradient-light)] dark:bg-[var(--bg-gradient-dark)]
+               text-[var(--text-light)] dark:text-[var(--text-dark)]"
+            >
                 <Navbar />
                 <main className="container mx-auto px-4 py-8 flex-1">
                     {children}

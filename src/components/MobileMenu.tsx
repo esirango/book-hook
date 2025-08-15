@@ -1,12 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
-
 import React from "react";
 
-type NavLink = {
-    href: string;
-    label: string;
-};
+type NavLink = { href: string; label: string };
 
 function MobileMenu({
     open,
@@ -39,7 +35,9 @@ function MobileMenu({
                             stiffness: 260,
                             damping: 25,
                         }}
-                        className="absolute top-full left-0 w-full md:hidden overflow-hidden bg-gradient-to-b from-[#FFF9EE] via-[#FCF3E2] to-[#F3E6CE] dark:from-[#0E152C] dark:via-[#0B1022] dark:to-[#0A0F1E] shadow-2xl rounded-b-2xl z-40"
+                        className="absolute top-full left-0 w-full md:hidden overflow-hidden
+                   bg-[var(--bg-gradient-light)] dark:bg-[var(--bg-gradient-dark)]
+                   shadow-2xl rounded-b-2xl z-40"
                     >
                         <nav className="px-5 py-4">
                             <ul className="space-y-2">
@@ -48,7 +46,10 @@ function MobileMenu({
                                         <Link
                                             href={l.href}
                                             onClick={() => setOpen(false)}
-                                            className="block px-4 py-2 rounded-lg text-slate-800 dark:text-slate-100 hover:bg-amber-200/60 dark:hover:bg-indigo-900/50 transition-colors"
+                                            className="block px-4 py-2 rounded-lg
+                             text-[var(--text-light)] dark:text-[var(--text-dark)]
+                             hover:bg-[var(--accent-light)]/30 dark:hover:bg-[var(--accent-dark)]/30
+                             transition-colors"
                                         >
                                             {l.label}
                                         </Link>

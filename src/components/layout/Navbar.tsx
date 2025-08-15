@@ -27,9 +27,9 @@ export default function Navbar() {
     if (!mounted) return null;
 
     const books = [
-        { color: "#F87171", label: "Book 1" },
-        { color: "#60A5FA", label: "Book 2" },
-        { color: "#34D399", label: "Book 3" },
+        { color: "#4F7942", label: "Book 1" }, // سبز خوش‌رنگ و چشم نواز
+        { color: "#DDBEA9", label: "Book 2" }, // قهوه‌ای ماتی
+        { color: "#FFE8D6", label: "Book 3" }, // کرم روشن
     ];
 
     const toggleBooks = () => {
@@ -39,11 +39,11 @@ export default function Navbar() {
 
     return (
         <nav className="relative z-50">
-            <div className="bg-gradient-to-r from-[#F6F1E7] via-[#F2E8D5] to-[#E8DBC0] dark:from-[#0B1020] dark:via-[#0E1428] dark:to-[#131A2E] shadow-lg relative z-50">
+            <div className="bg-[var(--card-bg-light)] dark:bg-[var(--card-bg-dark)] relative z-50">
                 <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                     <Link
                         href="/"
-                        className="flex items-center gap-2 text-slate-800 dark:text-slate-100 font-extrabold tracking-wide text-2xl"
+                        className="flex items-center gap-2 text-[var(--text-light)] dark:text-[var(--text-dark)] font-extrabold tracking-wide text-2xl"
                     >
                         📚 <span>Book Hook</span>
                     </Link>
@@ -53,7 +53,7 @@ export default function Navbar() {
                             <Link
                                 key={l.href}
                                 href={l.href}
-                                className="text-slate-800/90 hover:text-slate-900 dark:text-slate-100/90 dark:hover:text-white transition-colors"
+                                className="text-[var(--text-light)]/90 hover:text-[var(--accent-light)] dark:text-[var(--text-dark)]/90 dark:hover:text-[var(--accent-dark)] transition-colors"
                             >
                                 {l.label}
                             </Link>
@@ -61,7 +61,6 @@ export default function Navbar() {
                         <ThemeSwitcher />
                     </div>
 
-                    {/* Mobile */}
                     <div className="md:hidden flex items-center gap-3">
                         <ThemeSwitcher />
                         <div
@@ -71,7 +70,7 @@ export default function Navbar() {
                             {bookOrder.map((i, idx) => (
                                 <motion.div
                                     key={i}
-                                    className="absolute w-12 h-4 rounded shadow-lg"
+                                    className="absolute w-12 h-4 rounded-2xl"
                                     style={{ backgroundColor: books[i].color }}
                                     animate={{
                                         y: idx * 6,

@@ -26,18 +26,30 @@ export default function BookFilters({ onFilterChange }: Props) {
                 placeholder="Author"
                 value={author}
                 onChange={(e) => setAuthor(e.target.value)}
-                className="px-3 py-2 rounded border"
+                className="px-3 py-2 rounded-xl border border-[rgba(79,121,66,0.5)]
+               bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
+               text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
+               placeholder-green-400 dark:placeholder-green-500
+               focus:outline-none focus:ring-2 focus:ring-[var(--accent-light)]
+               dark:focus:ring-[var(--accent-dark)] transition-all"
             />
             <input
                 type="text"
                 placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="px-3 py-2 rounded border"
+                className="px-3 py-2 rounded-xl border border-[rgba(79,121,66,0.5)]
+               bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
+               text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
+               placeholder-green-400 dark:placeholder-green-500
+               focus:outline-none focus:ring-2 focus:ring-[var(--accent-light)]
+               dark:focus:ring-[var(--accent-dark)] transition-all"
             />
             <button
-                type="submit"
-                className="px-4 py-2 rounded bg-indigo-600 text-white font-bold"
+                className="px-4 py-2 rounded-xl
+               bg-[var(--accent-light)] dark:bg-[var(--accent-dark)]
+               text-white font-bold
+               hover:brightness-110 transition-all"
             >
                 Search
             </button>

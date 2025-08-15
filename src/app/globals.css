@@ -1,37 +1,105 @@
 @import "tailwindcss";
 
+:root {
+    /* پس‌زمینه گرادینت کلی صفحات */
+    --bg-gradient-light: linear-gradient(
+        135deg,
+        #556b2f 0%,
+        #8b5e3c 100%
+    ); /* سبز مغز پسته‌ای به قهوه‌ای */
+    --bg-gradient-dark: linear-gradient(
+        135deg,
+        #3e4a27 0%,
+        #4a3828 100%
+    ); /* سبز تیره به قهوه‌ای تیره */
+
+    /* رنگ متن */
+    --text-light: #2e2e2e;
+    --text-dark: #d8cfc4;
+
+    /* آکسن و دکمه‌ها */
+    --accent-light: #a67c52; /* قهوه‌ای روشن */
+    --accent-dark: #8b5e3c; /* قهوه‌ای متوسط */
+
+    /* کارت‌ها و پس‌زمینه‌ها */
+    --card-bg-light: rgba(245, 240, 230, 0.85); /* کرم روشن با ته‌رنگ قهوه‌ای */
+    --card-bg-dark: rgba(27, 42, 31, 0.85); /* سبز تیره مات */
+
+    /* placeholder و بخش‌های بدون تصویر */
+    --placeholder-light: #cbe6c7; /* سبز مغز پسته‌ای روشن */
+    --placeholder-dark: #556b4f; /* سبز مغز پسته‌ای تیره */
+
+    /* فیلدها و input ها */
+    --input-bg-light: rgba(245, 240, 230, 0.85);
+    --input-bg-dark: rgba(27, 42, 31, 0.85);
+    --input-text-light: #3e5c3c; /* سبز مغز پسته‌ای */
+    --input-text-dark: #cfe8d8; /* سبز روشن برای حالت تاریک */
+}
+
+/* پس‌زمینه و رنگ متن */
 body {
     font-family: "Inter", "Segoe UI", "Tahoma", "Arial", sans-serif;
-    background-color: #f6f8fa;
+    background: var(--bg-gradient-light);
+    color: var(--text-light);
+    transition: background 0.3s, color 0.3s;
 }
 
 .dark body {
-    background-color: #18181b;
+    background: var(--bg-gradient-dark);
+    color: var(--text-dark);
 }
 
+/* placeholder image pattern */
 img[alt="placeholder"] {
     background: repeating-linear-gradient(
         45deg,
-        #e0e7ff,
-        #e0e7ff 10px,
-        #c7d2fe 10px,
-        #c7d2fe 20px
+        #cbe6c7,
+        #cbe6c7 10px,
+        #a7c4a2 10px,
+        #a7c4a2 20px
     );
 }
 
-button:focus {
-    outline: none;
+/* دکمه‌ها */
+button {
+    background-color: var(--accent-light);
+    color: var(--text-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+.dark button {
+    background-color: var(--accent-dark);
+    color: var(--text-dark);
 }
 
+/* لینک‌ها و آکسن‌ها */
+a,
+.accent {
+    color: var(--accent-light);
+    transition: color 0.3s;
+}
+.dark a,
+.dark .accent {
+    color: var(--accent-dark);
+}
+
+/* انیمیشن‌ها */
 @keyframes light-flicker {
     0%,
     100% {
         transform: scale(1);
-        opacity: 0.6;
+        opacity: 0.7;
+    }
+    25% {
+        transform: scale(1.05);
+        opacity: 0.85;
     }
     50% {
         transform: scale(1.1);
-        opacity: 0.8;
+        opacity: 1;
+    }
+    75% {
+        transform: scale(1.05);
+        opacity: 0.85;
     }
 }
 
@@ -45,8 +113,23 @@ button:focus {
     }
 }
 
+@layer utilities {
+    .shadow-neumorph-light {
+        box-shadow: 8px 8px 15px rgba(180, 220, 180, 0.3),
+            -8px -8px 15px rgba(255, 255, 255, 0.5);
+    }
+    .shadow-neumorph-dark {
+        box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.5),
+            -6px -6px 10px rgba(40, 60, 40, 0.5);
+    }
+    .shadow-neumorph-hover {
+        box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.4),
+            -4px -4px 20px rgba(255, 255, 255, 0.2);
+    }
+}
+
 .animate-light-flicker {
-    animation: light-flicker 1.5s infinite;
+    animation: light-flicker 1.5s infinite ease-in-out;
 }
 .animate-soft-sway {
     animation: soft-sway 3s infinite ease-in-out;

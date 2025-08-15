@@ -20,7 +20,7 @@ export default function BooksPage() {
     const { books, isLoading, isError, hasNextPage } = useBooks(query, page);
 
     return (
-        <div>
+        <div className="min-h-screen p-6">
             <BookFilters
                 onFilterChange={(newFilters) => {
                     setFilters(newFilters);
@@ -28,13 +28,13 @@ export default function BooksPage() {
                 }}
             />
 
-            <h2 className="text-2xl font-bold mb-6 text-indigo-700">
+            <h2 className="text-2xl font-bold mb-6 text-[#355E3B] dark:text-[#A3D9A5]">
                 Open Library Books
             </h2>
 
             {isLoading && (
                 <div className="flex justify-center items-center h-32">
-                    <span className="text-indigo-600 font-semibold text-lg animate-pulse">
+                    <span className="text-[#355E3B] dark:text-[#A3D9A5] font-semibold text-lg animate-pulse">
                         Loading books...
                     </span>
                 </div>
@@ -46,7 +46,8 @@ export default function BooksPage() {
                 </div>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4">
+            {/* Grid با پس‌زمینه شفاف */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4 bg-transparent">
                 {books.map((book: any) => (
                     <BookCard key={book.key} book={book} />
                 ))}
@@ -56,21 +57,21 @@ export default function BooksPage() {
                 <button
                     onClick={() => setPage((p) => Math.max(p - 1, 1))}
                     disabled={page === 1}
-                    className="px-4 py-2 rounded bg-gray-300 text-gray-700 font-bold disabled:opacity-50"
+                    className="px-4 py-2 rounded bg-[#8AA278] dark:bg-[#2C4D2D] text-white font-bold disabled:opacity-50"
                 >
                     Previous
                 </button>
                 <button
                     onClick={() => setPage((p) => p + 1)}
                     disabled={!hasNextPage}
-                    className="px-4 py-2 rounded bg-indigo-600 text-white font-bold disabled:opacity-50"
+                    className="px-4 py-2 rounded bg-[#8AA278] dark:bg-[#2C4D2D] text-white font-bold disabled:opacity-50"
                 >
                     Next
                 </button>
             </div>
 
             {!isLoading && books.length === 0 && (
-                <div className="text-center text-gray-500 mt-12">
+                <div className="text-center text-[#355E3B] dark:text-[#A3D9A5] mt-12">
                     No books found.
                     <br />
                     Try again later.
