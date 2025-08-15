@@ -28,7 +28,6 @@ export default function BookCard({ book }: { book: any }) {
                 ) : (
                     <div className="flex flex-col items-center justify-center text-gray-400 dark:text-gray-300">
                         <span className="text-6xl select-none">📖</span>
-                        <span className="text-xs mt-1">No cover</span>
                     </div>
                 )}
             </div>

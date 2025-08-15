@@ -23,7 +23,7 @@ export default function HomePage() {
         hover:shadow-xl hover:scale-105 transition-transform duration-200"
             >
                 <span className="absolute inset-0 bg-black/25 rounded-xl"></span>
-                <span className="relative text-white bg-gradient-to-r from-[var(--accent-light)] to-[var(--accent-dark)] bg-clip-text text-transparent">
+                <span className="relative bg-gradient-to-r from-[var(--accent-light)] to-[var(--accent-dark)] bg-clip-text text-white">
                     Explore Books
                 </span>
             </Link>
