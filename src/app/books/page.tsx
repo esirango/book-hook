@@ -28,10 +28,6 @@ export default function BooksPage() {
                 }}
             />
 
-            <h2 className="text-2xl font-bold mb-6 text-[#355E3B] dark:text-[#A3D9A5]">
-                Open Library Books
-            </h2>
-
             {isLoading && (
                 <div className="flex justify-center items-center h-32">
                     <span className="text-[#355E3B] dark:text-[#A3D9A5] font-semibold text-lg animate-pulse">

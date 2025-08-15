@@ -11,11 +11,12 @@ export default function BookCard({ book }: { book: any }) {
     return (
         <div
             className="rounded-xl p-4 bg-[var(--card-bg-light)] dark:bg-[var(--card-bg-dark)]
-             flex flex-col transition-transform hover:-translate-y-1 hover:shadow-lg"
+    flex flex-col transition-all duration-300
+    shadow-sm hover:-translate-y-1 hover:shadow-lg"
         >
             <div
                 className="w-full h-48 mb-4 rounded overflow-hidden flex items-center justify-center
-                  bg-[var(--bg-light)] dark:bg-[var(--bg-dark)]"
+      bg-[var(--bg-light)] dark:bg-[var(--bg-dark)]"
             >
                 {coverUrl ? (
                     <img

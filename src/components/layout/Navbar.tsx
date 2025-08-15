@@ -27,9 +27,9 @@ export default function Navbar() {
     if (!mounted) return null;
 
     const books = [
-        { color: "#4F7942", label: "Book 1" }, // سبز خوش‌رنگ و چشم نواز
-        { color: "#DDBEA9", label: "Book 2" }, // قهوه‌ای ماتی
-        { color: "#FFE8D6", label: "Book 3" }, // کرم روشن
+        { color: "var(--placeholder-light)", label: "Book 1" },
+        { color: "var(--accent-light)", label: "Book 2" },
+        { color: "var(--card-bg-light)", label: "Book 3" },
     ];
 
     const toggleBooks = () => {
@@ -41,13 +41,15 @@ export default function Navbar() {
         <nav className="relative z-50">
             <div className="bg-[var(--card-bg-light)] dark:bg-[var(--card-bg-dark)] relative z-50">
                 <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+                    {/* لوگو */}
                     <Link
                         href="/"
                         className="flex items-center gap-2 text-[var(--text-light)] dark:text-[var(--text-dark)] font-extrabold tracking-wide text-2xl"
                     >
-                        📚 <span>Book Hook</span>
+                        📔 <span>Book Hook</span>
                     </Link>
 
+                    {/* لینک‌ها دسکتاپ */}
                     <div className="hidden md:flex gap-6 items-center">
                         {navLinks.map((l) => (
                             <Link
@@ -61,6 +63,7 @@ export default function Navbar() {
                         <ThemeSwitcher />
                     </div>
 
+                    {/* موبایل */}
                     <div className="md:hidden flex items-center gap-3">
                         <ThemeSwitcher />
                         <div
@@ -75,18 +78,21 @@ export default function Navbar() {
                                     animate={{
                                         y: idx * 6,
                                         zIndex: 10 - idx,
-                                        rotate:
-                                            open && idx === 0
-                                                ? -5
-                                                : open && idx === 1
-                                                ? 5
-                                                : 0,
+                                        rotate: open
+                                            ? idx === 0
+                                                ? -10
+                                                : idx === 1
+                                                ? 10
+                                                : 0
+                                            : 0,
+                                        scale: open && idx !== 2 ? 1.05 : 1,
                                     }}
                                     transition={{
                                         type: "spring",
                                         stiffness: 300,
                                         damping: 20,
                                     }}
+                                    whileHover={{ scale: 1.1 }}
                                 />
                             ))}
                         </div>
@@ -94,6 +100,7 @@ export default function Navbar() {
                 </div>
             </div>
 
+            {/* منوی موبایل */}
             <MobileMenu open={open} setOpen={setOpen} navLinks={navLinks} />
         </nav>
     );
