@@ -19,11 +19,13 @@ export default function HomePage() {
 
             <Link
                 href="/books"
-                className="bg-gradient-to-r from-[var(--accent-light)] to-[var(--accent-dark)]
-        text-white px-8 py-3 rounded-xl font-semibold shadow-lg
+                className="relative px-8 py-3 rounded-xl font-semibold shadow-lg
         hover:shadow-xl hover:scale-105 transition-transform duration-200"
             >
-                Explore Books
+                <span className="absolute inset-0 bg-black/25 rounded-xl"></span>
+                <span className="relative text-white bg-gradient-to-r from-[var(--accent-light)] to-[var(--accent-dark)] bg-clip-text text-transparent">
+                    Explore Books
+                </span>
             </Link>
         </div>
     );

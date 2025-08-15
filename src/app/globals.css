@@ -1,43 +1,56 @@
 @import "tailwindcss";
 
 :root {
-    /* گرادینت پس‌زمینه */
-    --bg-gradient-light: linear-gradient(135deg, #dbecc7 0%, #b18b63 100%);
-    --bg-gradient-dark: linear-gradient(135deg, #3b5837 0%, #4a3828 100%);
+    /* پس‌زمینه */
+    --bg-gradient-light: linear-gradient(
+        135deg,
+        #fff7e6 0%,
+        #d4af7f 70%,
+        #8b5e3c 100%
+    );
+    --bg-gradient-dark: linear-gradient(
+        135deg,
+        #2a2f36 0%,
+        #4b3f2f 50%,
+        #3c2f21 100%
+    );
 
-    /* رنگ متن اصلی */
-    --text-light: #5b4b1f; /* تاریک برای پس‌زمینه روشن */
-    --text-dark: #f5f1e8; /* روشن برای پس‌زمینه تیره */
+    /* رنگ متن */
+    --text-light: #5c4033;
+    --text-dark: #f5f0e1;
 
     /* رنگ تأکیدی/هدر */
-    --accent-light: #9f8565e4; /* کمی تیره‌تر برای وضوح */
-    --accent-dark: #c9a66b; /* روشن‌تر و برجسته روی پس‌زمینه تیره */
+    --accent-light: #c19a6b;
+    --accent-dark: #8da3b1;
 
     /* پس‌زمینه کارت‌ها */
-    --card-bg-light: rgba(255, 250, 240, 0.95);
-    --card-bg-dark: rgba(59, 97, 59, 0.655);
+    --card-bg-light: rgba(255, 250, 240, 0.9);
+    --card-bg-dark: rgba(40, 38, 36, 0.65);
 
     /* متن و پس‌زمینه ورودی‌ها */
     --input-bg-light: rgba(255, 250, 240, 0.95);
-    --input-bg-dark: rgba(22, 31, 22, 0.345);
-    --input-text-light: #334533; /* تاریک و قابل خواندن */
-    --input-text-dark: #c6e3b7; /* روشن و چشم‌نواز */
+    --input-bg-dark: rgba(38, 34, 30, 0.35);
+    --input-text-light: #4a3320;
+    --input-text-dark: #c9d6d5;
 
-    /* Placeholder ها */
-    --placeholder-light: #8db382; /* کمی پررنگ‌تر برای خوانایی */
-    --placeholder-dark: #d2decd; /* روشن‌تر و قابل خواندن */
+    /* Placeholder */
+    --placeholder-light: #a1866f;
+    --placeholder-dark: #d0cbc6;
 
-    /* سایه‌ها و رنگ‌های اضافی */
-    --shadow-light: rgba(0, 0, 0, 0.1);
-    --shadow-dark: rgba(0, 0, 0, 0.4);
-
-    /* دکمه‌ها و hover */
-    --btn-hover-light: #9c7b55;
-    --btn-hover-dark: #d1b078;
+    /* سایه‌ها و دکمه‌ها */
+    --shadow-light: rgba(0, 0, 0, 0.15);
+    --shadow-dark: rgba(0, 0, 0, 0.5);
+    --btn-hover-light: #b58c5b;
+    --btn-hover-dark: #d3a871;
 
     /* لینک‌ها */
-    --link-light: #5b3e1f;
+    --link-light: #5c3e23;
     --link-dark: #e0c78f;
+}
+
+body {
+    background: var(--bg-gradient-light);
+    color: var(--text-light);
 }
 
 .dark body {
