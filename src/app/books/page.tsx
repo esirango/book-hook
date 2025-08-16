@@ -43,7 +43,6 @@ export default function BooksPage() {
                 </div>
             )}
 
-            {/* Grid با پس‌زمینه شفاف */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4 bg-transparent">
                 {books.map((book: any) => (
                     <BookCard key={book.key} book={book} />
