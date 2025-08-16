@@ -2,6 +2,7 @@
 
 import React, { use } from "react";
 import { useBookDetails } from "@/hooks/useBookDetails";
+import Loading from "@/components/Loading";
 
 export default function BookDetailPage({
     params,
@@ -9,17 +10,9 @@ export default function BookDetailPage({
     params: Promise<{ id: string }>;
 }) {
     const { id } = use(params);
+    const { book, authors, isLoading, isError } = useBookDetails(id);
 
-    const { book, isLoading, isError } = useBookDetails(id);
-
-    if (isLoading)
-        return (
-            <div className="flex justify-center items-center h-64">
-                <span className="text-[var(--accent-light)] dark:text-[var(--accent-dark)] font-semibold text-lg animate-pulse">
-                    Loading book details...
-                </span>
-            </div>
-        );
+    if (isLoading) return <Loading />;
 
     if (isError || !book)
         return (
@@ -38,13 +31,17 @@ export default function BookDetailPage({
             ? book.description
             : book.description?.value || "No summary available.";
 
-    const authors = Array.isArray(book.authors)
-        ? book.authors.map((a: any) => a.name || "Unknown").join(", ")
-        : "Unknown";
-
-    const genres = Array.isArray(book.subjects)
-        ? book.subjects.join(", ")
-        : "Unknown";
+    // دسته‌بندی ساده برای subjects
+    const subjects = Array.isArray(book.subjects) ? book.subjects : [];
+    const genres = subjects.filter((s: string) =>
+        /(fiction|drama|romance|classic|literary)/i.test(s)
+    );
+    const themes = subjects.filter((s: string) =>
+        /(love|revenge|adultery|dream|customs|conditions)/i.test(s)
+    );
+    const places = book.subject_places || [];
+    const people = book.subject_people || [];
+    const times = book.subject_times || [];
 
     const published =
         book.first_publish_year ||
@@ -64,13 +61,29 @@ export default function BookDetailPage({
                         <h1 className="text-3xl font-bold mb-3 text-[var(--accent-light)] dark:text-[var(--accent-dark)]">
                             {book.title || "Untitled"}
                         </h1>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">
+                        <p>
                             <span className="font-semibold">Author:</span>{" "}
-                            {authors}
+                            {authors?.join(", ") || "Unknown"}
                         </p>
                         <p className="mb-2 text-gray-700 dark:text-gray-300">
                             <span className="font-semibold">Genres:</span>{" "}
-                            {genres}
+                            {genres.join(", ") || "Unknown"}
+                        </p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300">
+                            <span className="font-semibold">Themes:</span>{" "}
+                            {themes.join(", ") || "Unknown"}
+                        </p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300">
+                            <span className="font-semibold">Places:</span>{" "}
+                            {places.join(", ") || "Unknown"}
+                        </p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300">
+                            <span className="font-semibold">People:</span>{" "}
+                            {people.join(", ") || "Unknown"}
+                        </p>
+                        <p className="mb-2 text-gray-700 dark:text-gray-300">
+                            <span className="font-semibold">Times:</span>{" "}
+                            {times.join(", ") || "Unknown"}
                         </p>
                         <p className="mb-2 text-gray-700 dark:text-gray-300">
                             <span className="font-semibold">
