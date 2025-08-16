@@ -3,6 +3,7 @@ import { useState } from "react";
 import BookFilters from "@/components/BookFilters";
 import BookCard from "@/components/BookCard";
 import { useBooks } from "@/hooks/useBooks";
+import Loading from "@/components/Loading";
 
 function buildOpenLibraryQuery(filters: Record<string, string>) {
     if (filters.title && filters.author)
@@ -21,18 +22,18 @@ export default function BooksPage() {
 
     return (
         <div className="min-h-screen p-6">
-            <BookFilters
-                onFilterChange={(newFilters) => {
-                    setFilters(newFilters);
-                    setPage(1);
-                }}
-            />
+            {!isLoading && (
+                <BookFilters
+                    onFilterChange={(newFilters) => {
+                        setFilters(newFilters);
+                        setPage(1);
+                    }}
+                />
+            )}
 
             {isLoading && (
-                <div className="flex justify-center items-center h-32">
-                    <span className="text-[#355E3B] dark:text-[#A3D9A5] font-semibold text-lg animate-pulse">
-                        Loading books...
-                    </span>
+                <div className="flex justify-center items-center h-full">
+                    <Loading />
                 </div>
             )}
 
