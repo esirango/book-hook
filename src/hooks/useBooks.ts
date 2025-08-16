@@ -1,16 +1,21 @@
+// hooks/useBooks.ts
 import { fetcher } from "@/lib/fetcher";
 import useSWR from "swr";
 
 export const ITEMS_PER_PAGE = 12;
 
 export function useBooks(query: string, page: number) {
-    const key = query
-        ? `/search.json?q=${encodeURIComponent(
-              query
-          )}&page=${page}&limit=${ITEMS_PER_PAGE}`
-        : `/subjects/love.json?limit=${ITEMS_PER_PAGE}&offset=${
-              (page - 1) * ITEMS_PER_PAGE
-          }`;
+    let key = "";
+
+    if (query) {
+        const offset = (page - 1) * ITEMS_PER_PAGE;
+        key = `/search.json?q=${encodeURIComponent(
+            query
+        )}&limit=${ITEMS_PER_PAGE}&offset=${offset}`;
+    } else {
+        const offset = (page - 1) * ITEMS_PER_PAGE;
+        key = `/subjects/love.json?limit=${ITEMS_PER_PAGE}&offset=${offset}`;
+    }
 
     const { data, error, isLoading } = useSWR(key, fetcher, {
         keepPreviousData: true,
@@ -28,7 +33,7 @@ export function useBooks(query: string, page: number) {
             first_publish_year: b.first_publish_year,
             cover_id: b.cover_i || null,
         }));
-        total = data.numFound;
+        total = data.numFound || 0;
         hasNextPage = page * ITEMS_PER_PAGE < total;
     } else if (!query && Array.isArray(data?.works)) {
         books = data.works.map((b: any) => ({
@@ -38,7 +43,7 @@ export function useBooks(query: string, page: number) {
             first_publish_year: b.first_publish_year,
             cover_id: b.cover_id || null,
         }));
-        total = data.work_count;
+        total = data.work_count || 0;
         hasNextPage = page * ITEMS_PER_PAGE < total;
     }
 

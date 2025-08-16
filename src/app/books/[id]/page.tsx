@@ -2,7 +2,61 @@
 
 import React, { use } from "react";
 import { useBookDetails } from "@/hooks/useBookDetails";
-import Loading from "@/components/Loading";
+import BookDetailSkeleton from "@/components/books/shimmer/BookDetailSkeleton";
+import { useRouter, useSearchParams } from "next/navigation";
+import { GENRES } from "@/store/genres";
+
+interface TagListProps {
+    title: string;
+    items: string[];
+    paramKey: string;
+}
+
+function TagList({ title, items, paramKey }: TagListProps) {
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    if (!items.length) return null;
+
+    const limit = 4;
+    const shown = items.slice(0, limit);
+    const hiddenCount = items.length - shown.length;
+
+    function handleTagClick(tag: string) {
+        const query = new URLSearchParams(searchParams.toString());
+        query.set(paramKey, tag);
+
+        // مسیر /books اضافه شد
+        router.push(`/books?${query.toString()}`);
+    }
+
+    return (
+        <div className="mb-3">
+            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">
+                {title}:
+            </h3>
+            <div className="flex flex-wrap gap-2">
+                {shown.map((item, i) => (
+                    <button
+                        key={i}
+                        onClick={() => handleTagClick(item)}
+                        className="px-3 py-1 rounded-xl text-sm shadow-sm cursor-pointer
+                                   bg-[var(--input-bg-light)] text-[var(--input-text-light)]
+                                   dark:bg-[var(--input-bg-dark)] dark:text-[var(--input-text-dark)]
+                                   hover:brightness-110 transition-all"
+                    >
+                        {item}
+                    </button>
+                ))}
+                {hiddenCount > 0 && (
+                    <span className="px-3 py-1 rounded-xl text-sm shadow-sm bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
+                        +{hiddenCount} more
+                    </span>
+                )}
+            </div>
+        </div>
+    );
+}
 
 export default function BookDetailPage({
     params,
@@ -12,7 +66,7 @@ export default function BookDetailPage({
     const { id } = use(params);
     const { book, authors, isLoading, isError } = useBookDetails(id);
 
-    if (isLoading) return <Loading />;
+    if (isLoading) return <BookDetailSkeleton />;
 
     if (isError || !book)
         return (
@@ -31,11 +85,9 @@ export default function BookDetailPage({
             ? book.description
             : book.description?.value || "No summary available.";
 
-    // دسته‌بندی ساده برای subjects
     const subjects = Array.isArray(book.subjects) ? book.subjects : [];
-    const genres = subjects.filter((s: string) =>
-        /(fiction|drama|romance|classic|literary)/i.test(s)
-    );
+    // فقط ژانرهایی که در لیست ثابت هستند
+    const genres = subjects.filter((s: string) => GENRES.includes(s));
     const themes = subjects.filter((s: string) =>
         /(love|revenge|adultery|dream|customs|conditions)/i.test(s)
     );
@@ -61,40 +113,44 @@ export default function BookDetailPage({
                         <h1 className="text-3xl font-bold mb-3 text-[var(--accent-light)] dark:text-[var(--accent-dark)]">
                             {book.title || "Untitled"}
                         </h1>
-                        <p>
+                        <p className="mb-4">
                             <span className="font-semibold">Author:</span>{" "}
                             {authors?.join(", ") || "Unknown"}
                         </p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">
-                            <span className="font-semibold">Genres:</span>{" "}
-                            {genres.join(", ") || "Unknown"}
-                        </p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">
-                            <span className="font-semibold">Themes:</span>{" "}
-                            {themes.join(", ") || "Unknown"}
-                        </p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">
-                            <span className="font-semibold">Places:</span>{" "}
-                            {places.join(", ") || "Unknown"}
-                        </p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">
-                            <span className="font-semibold">People:</span>{" "}
-                            {people.join(", ") || "Unknown"}
-                        </p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">
-                            <span className="font-semibold">Times:</span>{" "}
-                            {times.join(", ") || "Unknown"}
-                        </p>
-                        <p className="mb-2 text-gray-700 dark:text-gray-300">
+
+                        <TagList
+                            title="Genres"
+                            items={genres}
+                            paramKey="genre"
+                        />
+                        <TagList
+                            title="Themes"
+                            items={themes}
+                            paramKey="theme"
+                        />
+                        <TagList
+                            title="Places"
+                            items={places}
+                            paramKey="place"
+                        />
+                        <TagList
+                            title="People"
+                            items={people}
+                            paramKey="person"
+                        />
+                        <TagList title="Times" items={times} paramKey="time" />
+
+                        <p className="mb-4 text-gray-700 dark:text-gray-300">
                             <span className="font-semibold">
                                 First Published:
                             </span>{" "}
                             {published}
                         </p>
-                        <p className="mb-3 text-gray-800 dark:text-gray-200">
-                            <span className="font-semibold">Summary:</span>{" "}
-                            {description}
-                        </p>
+
+                        <div className="text-gray-800 dark:text-gray-200 leading-relaxed">
+                            <h3 className="font-semibold mb-1">Summary:</h3>
+                            <p>{description}</p>
+                        </div>
                     </div>
                 </div>
             </div>

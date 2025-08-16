@@ -1,3 +1,4 @@
+// pages/books/page.tsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -6,14 +7,7 @@ import BookCard from "@/components/BookCard";
 import Loading from "@/components/Loading";
 import Pagination from "@/components/Pagination";
 import { useBooks, ITEMS_PER_PAGE } from "@/hooks/useBooks";
-
-function buildOpenLibraryQuery(filters: Record<string, string>) {
-    if (filters.title && filters.author)
-        return `${filters.title} ${filters.author}`;
-    if (filters.title) return filters.title;
-    if (filters.author) return filters.author;
-    return "";
-}
+import { buildOpenLibraryQuery } from "../../../utils/buildOpenLibraryQuery";
 
 export default function BooksPage() {
     const [filters, setFilters] = useState<Record<string, string>>({});
@@ -60,12 +54,14 @@ export default function BooksPage() {
                 ))}
             </div>
 
-            <Pagination
-                page={page}
-                setPage={setPage}
-                hasNextPage={hasNextPage}
-                totalPages={Math.ceil(total / ITEMS_PER_PAGE)}
-            />
+            {books.length !== 0 && (
+                <Pagination
+                    page={page}
+                    setPage={setPage}
+                    hasNextPage={hasNextPage}
+                    totalPages={Math.ceil(total / ITEMS_PER_PAGE)}
+                />
+            )}
 
             {!isLoading && books.length === 0 && (
                 <div className="text-center text-[#355E3B] dark:text-[#A3D9A5] mt-12">
