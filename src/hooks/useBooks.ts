@@ -1,16 +1,20 @@
 import { fetcher } from "@/lib/fetcher";
 import useSWR from "swr";
 
-const ITEMS_PER_PAGE = 20;
+export const ITEMS_PER_PAGE = 12;
 
-export function useBooks(query?: string, page: number = 1) {
-    const endpoint = query
-        ? `/search.json?q=${encodeURIComponent(query)}&page=${page}`
+export function useBooks(query: string, page: number) {
+    const key = query
+        ? `/search.json?q=${encodeURIComponent(
+              query
+          )}&page=${page}&limit=${ITEMS_PER_PAGE}`
         : `/subjects/love.json?limit=${ITEMS_PER_PAGE}&offset=${
               (page - 1) * ITEMS_PER_PAGE
           }`;
 
-    const { data, error, isLoading } = useSWR(endpoint, fetcher);
+    const { data, error, isLoading } = useSWR(key, fetcher, {
+        keepPreviousData: true,
+    });
 
     let books: any[] = [];
     let total = 0;
@@ -24,7 +28,7 @@ export function useBooks(query?: string, page: number = 1) {
             first_publish_year: b.first_publish_year,
             cover_id: b.cover_i || null,
         }));
-        total = data.numFound || books.length;
+        total = data.numFound;
         hasNextPage = page * ITEMS_PER_PAGE < total;
     } else if (!query && Array.isArray(data?.works)) {
         books = data.works.map((b: any) => ({
@@ -34,15 +38,9 @@ export function useBooks(query?: string, page: number = 1) {
             first_publish_year: b.first_publish_year,
             cover_id: b.cover_id || null,
         }));
-        hasNextPage = (data.works?.length ?? 0) === ITEMS_PER_PAGE;
+        total = data.work_count;
+        hasNextPage = page * ITEMS_PER_PAGE < total;
     }
 
-    return {
-        books,
-        isLoading,
-        isError: !!error,
-        total,
-        ITEMS_PER_PAGE,
-        hasNextPage,
-    };
+    return { books, isLoading, isError: !!error, hasNextPage, total };
 }

@@ -1,9 +1,11 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect, useRef } from "react";
 import BookFilters from "@/components/BookFilters";
 import BookCard from "@/components/BookCard";
-import { useBooks } from "@/hooks/useBooks";
 import Loading from "@/components/Loading";
+import Pagination from "@/components/Pagination";
+import { useBooks, ITEMS_PER_PAGE } from "@/hooks/useBooks";
 
 function buildOpenLibraryQuery(filters: Record<string, string>) {
     if (filters.title && filters.author)
@@ -16,18 +18,27 @@ function buildOpenLibraryQuery(filters: Record<string, string>) {
 export default function BooksPage() {
     const [filters, setFilters] = useState<Record<string, string>>({});
     const [page, setPage] = useState(1);
+    const prevQueryRef = useRef<string>("");
 
     const query = buildOpenLibraryQuery(filters);
-    const { books, isLoading, isError, hasNextPage } = useBooks(query, page);
+
+    useEffect(() => {
+        if (prevQueryRef.current !== query) {
+            setPage(1);
+            prevQueryRef.current = query;
+        }
+    }, [query]);
+
+    const { books, isLoading, isError, hasNextPage, total } = useBooks(
+        query,
+        page
+    );
 
     return (
         <div className="min-h-screen p-6">
             {!isLoading && (
                 <BookFilters
-                    onFilterChange={(newFilters) => {
-                        setFilters(newFilters);
-                        setPage(1);
-                    }}
+                    onFilterChange={(newFilters) => setFilters(newFilters)}
                 />
             )}
 
@@ -43,28 +54,18 @@ export default function BooksPage() {
                 </div>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4 bg-transparent">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                 {books.map((book: any) => (
                     <BookCard key={book.key} book={book} />
                 ))}
             </div>
 
-            <div className="flex justify-center gap-4 mt-8">
-                <button
-                    onClick={() => setPage((p) => Math.max(p - 1, 1))}
-                    disabled={page === 1}
-                    className="px-4 py-2 rounded bg-[#8AA278] dark:bg-[#2C4D2D] text-white font-bold disabled:opacity-50"
-                >
-                    Previous
-                </button>
-                <button
-                    onClick={() => setPage((p) => p + 1)}
-                    disabled={!hasNextPage}
-                    className="px-4 py-2 rounded bg-[#8AA278] dark:bg-[#2C4D2D] text-white font-bold disabled:opacity-50"
-                >
-                    Next
-                </button>
-            </div>
+            <Pagination
+                page={page}
+                setPage={setPage}
+                hasNextPage={hasNextPage}
+                totalPages={Math.ceil(total / ITEMS_PER_PAGE)}
+            />
 
             {!isLoading && books.length === 0 && (
                 <div className="text-center text-[#355E3B] dark:text-[#A3D9A5] mt-12">
