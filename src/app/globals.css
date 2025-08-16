@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 :root {
+    --menu-bg-light: rgb(232, 179, 114);
+    --menu-bg-dark: rgba(56, 65, 75, 0.85);
+
     /* پس‌زمینه */
     --bg-gradient-light: linear-gradient(
         135deg,
@@ -15,6 +18,19 @@
         #3c2f21 100%
     );
 
+    /* هاور لینک‌ها */
+    --link-hover-light: rgba(
+        193,
+        154,
+        107,
+        0.6
+    ); /* رنگ قهوه‌ای روشن‌تر و شفافیت کمتر */
+    --link-hover-dark: rgba(
+        141,
+        163,
+        177,
+        0.6
+    ); /* رنگ آبی-خاکستری برای دارک مود */
     /* رنگ متن */
     --text-light: #5c4033;
     --text-dark: #f5f0e1;

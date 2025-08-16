@@ -17,14 +17,17 @@ function MobileMenu({
         <AnimatePresence>
             {open && (
                 <>
+                    {/* Backdrop */}
                     <motion.div
                         key="backdrop"
-                        className="fixed inset-0 backdrop-blur-sm bg-black/20 md:hidden"
+                        className="fixed inset-0 backdrop-blur-sm bg-black/50 md:hidden"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={() => setOpen(false)}
                     />
+
+                    {/* Dropdown Menu */}
                     <motion.div
                         key="dropdown"
                         initial={{ height: 0, opacity: 0 }}
@@ -35,9 +38,12 @@ function MobileMenu({
                             stiffness: 260,
                             damping: 25,
                         }}
-                        className="absolute top-full left-0 w-full md:hidden overflow-hidden
-                   bg-[var(--bg-gradient-light)] dark:bg-[var(--bg-gradient-dark)]
-                   shadow-2xl rounded-b-2xl z-40"
+                        className="
+    absolute top-full left-0 w-full md:hidden overflow-hidden
+    bg-[var(--menu-bg-light)] dark:bg-[var(--menu-bg-dark)]
+    backdrop-blur-sm
+    shadow-2xl rounded-b-2xl z-40
+  "
                     >
                         <nav className="px-5 py-4">
                             <ul className="space-y-2">
@@ -46,10 +52,12 @@ function MobileMenu({
                                         <Link
                                             href={l.href}
                                             onClick={() => setOpen(false)}
-                                            className="block px-4 py-2 rounded-lg
-                             text-[var(--text-light)] dark:text-[var(--text-dark)]
-                             hover:bg-[var(--accent-light)]/30 dark:hover:bg-[var(--accent-dark)]/30
-                             transition-colors"
+                                            className="
+              block px-4 py-2 rounded-lg
+              text-gray-900 dark:text-gray-100
+              hover:bg-white/30 dark:hover:bg-gray-800/30
+              transition-colors font-medium
+            "
                                         >
                                             {l.label}
                                         </Link>

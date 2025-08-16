@@ -38,7 +38,7 @@ export default function Navbar() {
     };
 
     return (
-        <nav className="relative z-50">
+        <nav className="sticky top-0 z-50 backdrop-blur-md shadow-md">
             <div className="bg-[var(--card-bg-light)] dark:bg-[var(--card-bg-dark)] relative z-50">
                 <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                     {/* لوگو */}
