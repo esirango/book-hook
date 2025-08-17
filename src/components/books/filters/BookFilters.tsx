@@ -9,6 +9,7 @@ import {
 } from "@/store/constants/filterOptions";
 import { GENRES } from "@/store/constants/genres";
 import CustomSelect from "./CustomSelect";
+import { RefreshCcw, Search, X } from "lucide-react";
 
 interface Props {
     onFilterChange: (filters: Record<string, string>) => void;
@@ -102,30 +103,28 @@ export default function BookFilters({ onFilterChange }: Props) {
             onSubmit={handleSubmit}
             className="flex flex-wrap justify-center gap-4 items-center mb-6"
         >
+            {/* Author & Title Inputs */}
             {(["author", "title"] as const).map((field) => (
                 <input
                     key={field}
                     type="text"
                     placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                    value={field === "author" ? author : title}
-                    onChange={(e) =>
-                        field === "author"
-                            ? setAuthor(e.target.value)
-                            : setTitle(e.target.value)
-                    }
+                    value={filters[field]}
+                    onChange={(e) => handleChange(field, e.target.value)}
                     className="
-                    w-56
-      px-3 py-2 rounded-xl
-      bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
-      text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
-      placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
-      focus:outline-none
-      ring-2 ring-[var(--accent-light)] dark:ring-[var(--accent-dark)]
-      transition-all
-    "
+        w-56
+        px-3 py-2 rounded-xl
+        bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
+        text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
+        placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
+        focus:outline-none
+        ring-2 ring-[var(--accent-light)] dark:ring-[var(--accent-dark)]
+        transition-all
+      "
                 />
             ))}
 
+            {/* Select Fields */}
             {selectFields.map(({ key, options, placeholder }) => (
                 <CustomSelect
                     key={key}
@@ -140,15 +139,34 @@ export default function BookFilters({ onFilterChange }: Props) {
                 />
             ))}
 
-            <button
-                type="submit"
-                className="px-4 py-2 rounded-xl
-               bg-[var(--link-light)] dark:bg-[var(--link-dark)]
-               text-[var(--text-light)] dark:text-[var(--text-dark)]
-               font-bold hover:brightness-110 transition-all"
-            >
-                Search
-            </button>
+            {/* Action Buttons */}
+            <div className="flex gap-2">
+                <button
+                    type="submit"
+                    className="
+        px-4 py-2 flex items-center gap-2 rounded-xl
+        bg-[var(--link-light)] dark:bg-[var(--link-dark)]
+        text-[var(--text-light)] dark:text-[var(--text-dark)]
+        font-bold hover:brightness-110 transition-all
+      "
+                >
+                    <Search size={18} /> Search
+                </button>
+
+                <button
+                    type="button"
+                    onClick={handleReset}
+                    className="
+        px-4 py-2 flex items-center gap-2 rounded-xl
+        bg-[var(--bg-light)] dark:bg-[var(--bg-dark)]
+        text-[var(--text-light)] dark:text-[var(--text-dark)]
+        border border-[var(--accent-light)] dark:border-[var(--accent-dark)]
+        font-semibold hover:brightness-105 transition-all
+      "
+                >
+                    <RefreshCcw size={18} />
+                </button>
+            </div>
         </form>
     );
 }
