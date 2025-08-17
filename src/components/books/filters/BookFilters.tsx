@@ -15,9 +15,6 @@ interface Props {
     onFilterChange: (filters: Record<string, string>) => void;
 }
 export default function BookFilters({ onFilterChange }: Props) {
-    const [author, setAuthor] = useState("");
-    const [title, setTitle] = useState("");
-
     const router = useRouter();
     const searchParams = useSearchParams();
     const initialized = useRef(false);
