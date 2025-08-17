@@ -5,6 +5,8 @@ import { ChevronDown } from "lucide-react";
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { useThemeStore } from "@/store/themeStore";
+
 interface Option {
     id?: string;
     code?: string;
@@ -27,29 +29,72 @@ export default function CustomSelect({
     onChange,
     placeholder = "-",
 }: CustomSelectProps) {
+    const { isDark } = useThemeStore();
+
     const isValidValue = options.some(
         (opt) => opt.id === value || opt.code === value || opt.value === value
     );
 
     const selectedValue = isValidValue ? value : "";
 
+    const styles = {
+        button: {
+            cursor: "pointer",
+            padding: "0.5rem 1rem",
+            width: "100%",
+            textAlign: "left" as const,
+            borderRadius: "0.75rem",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            border: `1px solid ${
+                isDark ? "var(--accent-dark)" : "var(--accent-light)"
+            }`,
+            backgroundColor: isDark
+                ? "var(--accent-dark)"
+                : "var(--accent-light)",
+            color: isDark ? "var(--text-dark)" : "var(--input-text-light)",
+            outline: "none",
+            transition: "all 0.2s ease",
+        },
+        optionsContainer: {
+            position: "absolute" as const,
+            marginTop: "0.25rem",
+            width: "100%",
+            maxHeight: "15rem",
+            overflow: "auto" as const,
+            borderRadius: "0.75rem",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+            zIndex: 20,
+            backgroundColor: isDark
+                ? "var(--menu-bg-dark)"
+                : "var(--menu-bg-light)",
+        },
+        option: (active: boolean, selected: boolean, disabled?: boolean) => ({
+            cursor: disabled ? "not-allowed" : "pointer",
+            padding: "0.5rem 1rem",
+            transition: "background-color 0.2s",
+            fontWeight: selected ? 600 : 400,
+            opacity: disabled ? 0.5 : 1,
+            backgroundColor: active
+                ? isDark
+                    ? "var(--accent-dark)"
+                    : "var(--accent-light)"
+                : "transparent",
+        }),
+        icon: {
+            width: "1rem",
+            height: "1rem",
+            color: isDark ? "#D1D5DB" : "#9CA3AF",
+        },
+    };
+
     return (
-        <div className="relative w-56 ">
+        <div style={{ position: "relative", width: "14rem" }}>
             <Listbox value={selectedValue} onChange={onChange}>
                 {({ open }) => (
-                    <div className="relative">
-                        <Listbox.Button
-                            className={`
-        cursor-pointer px-4 py-2 w-full text-left
-        border rounded-xl flex items-center justify-between
-        text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
-        placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
-        border-[var(--accent-light)] dark:border-[var(--accent-dark)]
-        bg-[var(--accent-dark)] dark:bg-[var(--accent-light)]
-        focus:outline-none focus:ring-2 focus:ring-[var(--accent-light)] dark:focus:ring-[var(--accent-dark)]
-        transition-all
-    `}
-                        >
+                    <div style={{ position: "relative" }}>
+                        <Listbox.Button style={styles.button}>
                             {options.find(
                                 (opt) =>
                                     opt.id === value ||
@@ -63,7 +108,7 @@ export default function CustomSelect({
                                         opt.value === value
                                 )?.label ||
                                 placeholder}
-                            <ChevronDown className="w-4 h-4 text-gray-400 dark:text-gray-300" />
+                            <ChevronDown style={styles.icon} />
                         </Listbox.Button>
 
                         <AnimatePresence>
@@ -73,11 +118,7 @@ export default function CustomSelect({
                                     initial={{ opacity: 0, y: -5 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -5 }}
-                                    className="
-    absolute outline-0 mt-1 w-full max-h-60 overflow-auto
-    bg-[var(--menu-bg-light)] dark:bg-[var(--menu-bg-dark)]
-    rounded-xl shadow-lg z-20
-  "
+                                    style={styles.optionsContainer}
                                 >
                                     {options.map((opt) => (
                                         <Listbox.Option
@@ -88,18 +129,18 @@ export default function CustomSelect({
                                                 opt.id || opt.code || opt.value
                                             }
                                             disabled={opt.disabled}
-                                            className={({ active, selected }) =>
-                                                `cursor-pointer px-4 py-2 transition-colors
-         ${
-             active
-                 ? "bg-[var(--accent-light)] dark:bg-[var(--accent-dark)]"
-                 : ""
-         }
-         ${selected ? "font-semibold" : ""}
-         ${opt.disabled ? "opacity-50 cursor-not-allowed" : ""}`
-                                            }
                                         >
-                                            {opt.name || opt.label}
+                                            {({ active, selected }) => (
+                                                <div
+                                                    style={styles.option(
+                                                        active,
+                                                        selected,
+                                                        opt.disabled
+                                                    )}
+                                                >
+                                                    {opt.name || opt.label}
+                                                </div>
+                                            )}
                                         </Listbox.Option>
                                     ))}
                                 </Listbox.Options>

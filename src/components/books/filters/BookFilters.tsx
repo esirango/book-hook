@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
@@ -9,15 +11,18 @@ import {
 } from "@/store/constants/filterOptions";
 import { GENRES } from "@/store/constants/genres";
 import CustomSelect from "./CustomSelect";
-import { RefreshCcw, Search, X } from "lucide-react";
+import { RefreshCcw, Search } from "lucide-react";
+import { useThemeStore } from "@/store/themeStore";
 
 interface Props {
     onFilterChange: (filters: Record<string, string>) => void;
 }
+
 export default function BookFilters({ onFilterChange }: Props) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const initialized = useRef(false);
+    const { isDark } = useThemeStore();
 
     const [filters, setFilters] = useState({
         author: "",
@@ -70,7 +75,6 @@ export default function BookFilters({ onFilterChange }: Props) {
             publishYear: "",
             language: "",
         };
-
         setFilters(resetFilters);
         router.push(`/books`);
         onFilterChange(resetFilters);
@@ -95,11 +99,66 @@ export default function BookFilters({ onFilterChange }: Props) {
         { key: "language", options: LANGUAGES, placeholder: "Select Language" },
     ];
 
+    const styles = {
+        form: {
+            display: "flex",
+            flexWrap: "wrap" as const,
+            justifyContent: "center",
+            gap: "1rem",
+            alignItems: "center",
+            marginBottom: "1.5rem",
+        },
+        input: {
+            width: "14rem",
+            padding: "0.5rem 0.75rem",
+            borderRadius: "0.75rem",
+            outline: "none",
+            border: `1px solid ${
+                isDark ? "var(--accent-dark)" : "var(--accent-light)"
+            }`,
+            backgroundColor: isDark
+                ? "var(--input-bg-dark)"
+                : "var(--input-bg-light)",
+            color: isDark
+                ? "var(--input-text-dark)"
+                : "var(--input-text-light)",
+            placeholderColor: isDark
+                ? "var(--placeholder-dark)"
+                : "var(--placeholder-light)",
+            transition: "all 0.2s",
+        },
+        buttonPrimary: {
+            cursor: "pointer",
+            padding: "0.5rem 1rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            borderRadius: "0.75rem",
+            fontWeight: "bold",
+            backgroundColor: isDark ? "var(--link-dark)" : "var(--link-light)",
+            color: isDark ? "var(--text-dark)" : "var(--text-light)",
+            border: "none",
+            transition: "filter 0.2s",
+        },
+        buttonSecondary: {
+            cursor: "pointer",
+            padding: "0.5rem 1rem",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            borderRadius: "0.75rem",
+            fontWeight: 600,
+            color: isDark ? "var(--text-dark)" : "var(--text-light)",
+            border: `1px solid ${
+                isDark ? "var(--accent-dark)" : "var(--accent-light)"
+            }`,
+            transition: "filter 0.2s",
+        },
+        buttonGroup: { display: "flex", gap: "0.5rem" },
+    };
+
     return (
-        <form
-            onSubmit={handleSubmit}
-            className="flex flex-wrap justify-center gap-4 items-center mb-6"
-        >
+        <form onSubmit={handleSubmit} style={styles.form}>
             {/* Author & Title Inputs */}
             {(["author", "title"] as const).map((field) => (
                 <input
@@ -108,64 +167,38 @@ export default function BookFilters({ onFilterChange }: Props) {
                     placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                     value={filters[field]}
                     onChange={(e) => handleChange(field, e.target.value)}
-                    className="
-        w-56
-        px-3 py-2 rounded-xl
-        bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
-        text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
-        placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
-        focus:outline-none
-        ring-2 ring-[var(--accent-light)] dark:ring-[var(--accent-dark)]
-        transition-all
-      "
+                    style={styles.input}
                 />
             ))}
-
             {/* Select Fields */}
             {selectFields.map(({ key, options, placeholder }) => (
                 <CustomSelect
                     key={key}
                     value={filters[key]}
-                    options={options.map((opt) =>
-                        typeof opt === "string"
-                            ? { value: opt, label: opt }
-                            : opt
-                    )}
+                    options={options.map((opt) => ({ value: opt, label: opt }))}
                     placeholder={placeholder}
                     onChange={(val: string) => handleChange(key, val)}
                 />
             ))}
-
-            {/* Action Buttons */}
+            {/* Action Buttons */}{" "}
             <div className="flex gap-2">
+                {" "}
                 <button
                     type="submit"
-                    className="
-                    cursor-pointer
-        px-4 py-2 flex items-center gap-2 rounded-xl
-        bg-[var(--link-light)] dark:bg-[var(--link-dark)]
-        text-[var(--text-light)] dark:text-[var(--text-dark)]
-        font-bold hover:brightness-110 transition-all
-      "
+                    className=" cursor-pointer px-4 py-2 flex items-center gap-2 rounded-xl bg-[var(--link-light)] dark:bg-[var(--link-dark)] text-[var(--text-light)] dark:text-[var(--text-dark)] font-bold hover:brightness-110 transition-all "
                 >
-                    <Search size={18} /> Search
-                </button>
-
+                    {" "}
+                    <Search size={18} /> Search{" "}
+                </button>{" "}
                 <button
                     type="button"
                     onClick={handleReset}
-                    className="
-                    cursor-pointer
-        px-4 py-2 flex items-center gap-2 rounded-xl
-        bg-[var(--bg-light)] dark:bg-[var(--bg-dark)]
-        text-[var(--text-light)] dark:text-[var(--text-dark)]
-        border border-[var(--accent-light)] dark:border-[var(--accent-dark)]
-        font-semibold hover:brightness-105 transition-all
-      "
+                    className=" cursor-pointer px-4 py-2 flex items-center gap-2 rounded-xl bg-[var(--bg-light)] dark:bg-[var(--bg-dark)] text-[var(--text-light)] dark:text-[var(--text-dark)] border border-[var(--accent-light)] dark:border-[var(--accent-dark)] font-semibold hover:brightness-105 transition-all "
                 >
-                    <RefreshCcw size={18} />
-                </button>
-            </div>
+                    {" "}
+                    <RefreshCcw size={18} />{" "}
+                </button>{" "}
+            </div>{" "}
         </form>
     );
 }
