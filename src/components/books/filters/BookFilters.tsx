@@ -100,32 +100,31 @@ export default function BookFilters({ onFilterChange }: Props) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="flex flex-wrap gap-4 items-center mb-6"
+            className="flex flex-wrap justify-center gap-4 items-center mb-6"
         >
-            <input
-                type="text"
-                placeholder="Author"
-                value={author}
-                onChange={(e) => setAuthor(e.target.value)}
-                className="px-3 py-2 rounded-xl
-               bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
-               text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
-               placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
-               focus:outline-none focus:ring-2 focus:ring-[var(--accent-light)]
-               dark:focus:ring-[var(--accent-dark)] transition-all"
-            />
-            <input
-                type="text"
-                placeholder="Title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="px-3 py-2 rounded-xl
-               bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
-               text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
-               placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
-               focus:outline-none focus:ring-2 focus:ring-[var(--accent-light)]
-               dark:focus:ring-[var(--accent-dark)] transition-all"
-            />
+            {(["author", "title"] as const).map((field) => (
+                <input
+                    key={field}
+                    type="text"
+                    placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                    value={field === "author" ? author : title}
+                    onChange={(e) =>
+                        field === "author"
+                            ? setAuthor(e.target.value)
+                            : setTitle(e.target.value)
+                    }
+                    className="
+                    w-56
+      px-3 py-2 rounded-xl
+      bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
+      text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
+      placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
+      focus:outline-none
+      ring-2 ring-[var(--accent-light)] dark:ring-[var(--accent-dark)]
+      transition-all
+    "
+                />
+            ))}
 
             {selectFields.map(({ key, options, placeholder }) => (
                 <CustomSelect

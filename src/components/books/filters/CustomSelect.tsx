@@ -5,8 +5,6 @@ import { ChevronDown } from "lucide-react";
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import Cookies from "js-cookie";
-
 interface Option {
     id?: string;
     code?: string;
@@ -35,7 +33,6 @@ export default function CustomSelect({
 
     const selectedValue = isValidValue ? value : "";
 
-    const theme = Cookies.get("theme");
     return (
         <div className="relative w-56 ">
             <Listbox value={selectedValue} onChange={onChange}>
@@ -76,7 +73,11 @@ export default function CustomSelect({
                                     initial={{ opacity: 0, y: -5 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -5 }}
-                                    className="absolute outline-0 mt-1 w-full max-h-60 overflow-auto bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl shadow-lg z-20"
+                                    className="
+    absolute outline-0 mt-1 w-full max-h-60 overflow-auto
+    bg-[var(--menu-bg-light)] dark:bg-[var(--menu-bg-dark)]
+    rounded-xl shadow-lg z-20
+  "
                                 >
                                     {options.map((opt) => (
                                         <Listbox.Option
@@ -88,19 +89,14 @@ export default function CustomSelect({
                                             }
                                             disabled={opt.disabled}
                                             className={({ active, selected }) =>
-                                                `cursor-pointer px-4 py-2 transition-colors ${
-                                                    active
-                                                        ? "bg-[var(--menu-bg-light)] dark:bg-[var(--menu-bg-dark)]"
-                                                        : ""
-                                                } ${
-                                                    selected
-                                                        ? "font-semibold"
-                                                        : ""
-                                                } ${
-                                                    opt.disabled
-                                                        ? "opacity-50 cursor-not-allowed"
-                                                        : ""
-                                                }`
+                                                `cursor-pointer px-4 py-2 transition-colors
+         ${
+             active
+                 ? "bg-[var(--accent-light)] dark:bg-[var(--accent-dark)]"
+                 : ""
+         }
+         ${selected ? "font-semibold" : ""}
+         ${opt.disabled ? "opacity-50 cursor-not-allowed" : ""}`
                                             }
                                         >
                                             {opt.name || opt.label}
