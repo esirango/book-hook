@@ -127,34 +127,6 @@ export default function BookFilters({ onFilterChange }: Props) {
                 : "var(--placeholder-light)",
             transition: "all 0.2s",
         },
-        buttonPrimary: {
-            cursor: "pointer",
-            padding: "0.5rem 1rem",
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            borderRadius: "0.75rem",
-            fontWeight: "bold",
-            backgroundColor: isDark ? "var(--link-dark)" : "var(--link-light)",
-            color: isDark ? "var(--text-dark)" : "var(--text-light)",
-            border: "none",
-            transition: "filter 0.2s",
-        },
-        buttonSecondary: {
-            cursor: "pointer",
-            padding: "0.5rem 1rem",
-            display: "flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            borderRadius: "0.75rem",
-            fontWeight: 600,
-            color: isDark ? "var(--text-dark)" : "var(--text-light)",
-            border: `1px solid ${
-                isDark ? "var(--accent-dark)" : "var(--accent-light)"
-            }`,
-            transition: "filter 0.2s",
-        },
-        buttonGroup: { display: "flex", gap: "0.5rem" },
     };
 
     return (
