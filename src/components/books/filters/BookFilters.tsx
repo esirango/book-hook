@@ -141,6 +141,7 @@ export default function BookFilters({ onFilterChange }: Props) {
                 <button
                     type="submit"
                     className="
+                    cursor-pointer
         px-4 py-2 flex items-center gap-2 rounded-xl
         bg-[var(--link-light)] dark:bg-[var(--link-dark)]
         text-[var(--text-light)] dark:text-[var(--text-dark)]
@@ -154,6 +155,7 @@ export default function BookFilters({ onFilterChange }: Props) {
                     type="button"
                     onClick={handleReset}
                     className="
+                    cursor-pointer
         px-4 py-2 flex items-center gap-2 rounded-xl
         bg-[var(--bg-light)] dark:bg-[var(--bg-dark)]
         text-[var(--text-light)] dark:text-[var(--text-dark)]
