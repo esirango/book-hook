@@ -1,13 +1,12 @@
-// pages/books/page.tsx
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import BookFilters from "@/components/BookFilters";
 import BookCard from "@/components/BookCard";
 import Loading from "@/components/Loading";
 import Pagination from "@/components/Pagination";
 import { useBooks, ITEMS_PER_PAGE } from "@/hooks/useBooks";
 import { buildOpenLibraryQuery } from "../../../utils/buildOpenLibraryQuery";
+import BookFilters from "@/components/books/filters/BookFilters";
 
 export default function BooksPage() {
     const [filters, setFilters] = useState<Record<string, string>>({});

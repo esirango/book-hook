@@ -1,8 +1,5 @@
-"use client";
-
 import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useGenres } from "@/hooks/useGenres";
 import {
     PLACES,
     PEOPLE,
@@ -10,18 +7,19 @@ import {
     PUBLISH_YEARS,
     LANGUAGES,
 } from "@/store/constants/filterOptions";
-import CustomSelect from "./books/filters/CustomSelect";
 import { GENRES } from "@/store/constants/genres";
+import CustomSelect from "./CustomSelect";
 
 interface Props {
     onFilterChange: (filters: Record<string, string>) => void;
 }
-
 export default function BookFilters({ onFilterChange }: Props) {
+    const [author, setAuthor] = useState("");
+    const [title, setTitle] = useState("");
+
     const router = useRouter();
     const searchParams = useSearchParams();
     const initialized = useRef(false);
-    const { genres } = useGenres();
 
     const [filters, setFilters] = useState({
         author: "",
@@ -102,26 +100,32 @@ export default function BookFilters({ onFilterChange }: Props) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="flex flex-wrap gap-4 items-center mb-6 p-4 bg-[var(--bg-gradient-light)] dark:bg-[var(--bg-gradient-dark)] rounded-xl shadow-md"
+            className="flex flex-wrap gap-4 items-center mb-6"
         >
-            {(["author", "title"] as (keyof typeof filters)[]).map((key) => (
-                <input
-                    key={key}
-                    type="text"
-                    placeholder={key.charAt(0).toUpperCase() + key.slice(1)}
-                    value={filters[key]}
-                    onChange={(e) => handleChange(key, e.target.value)}
-                    className={`
-        px-4 py-2  text-left
-        border rounded-xl
-        text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
-        placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
-        border-[var(--accent-light)] dark:border-[var(--accent-dark)]
-        focus:outline-none focus:ring-2 focus:ring-[var(--accent-light)] dark:focus:ring-[var(--accent-dark)]
-        transition-all
-    `}
-                />
-            ))}
+            <input
+                type="text"
+                placeholder="Author"
+                value={author}
+                onChange={(e) => setAuthor(e.target.value)}
+                className="px-3 py-2 rounded-xl
+               bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
+               text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
+               placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
+               focus:outline-none focus:ring-2 focus:ring-[var(--accent-light)]
+               dark:focus:ring-[var(--accent-dark)] transition-all"
+            />
+            <input
+                type="text"
+                placeholder="Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="px-3 py-2 rounded-xl
+               bg-[var(--input-bg-light)] dark:bg-[var(--input-bg-dark)]
+               text-[var(--input-text-light)] dark:text-[var(--input-text-dark)]
+               placeholder-[var(--placeholder-light)] dark:placeholder-[var(--placeholder-dark)]
+               focus:outline-none focus:ring-2 focus:ring-[var(--accent-light)]
+               dark:focus:ring-[var(--accent-dark)] transition-all"
+            />
 
             {selectFields.map(({ key, options, placeholder }) => (
                 <CustomSelect
@@ -139,17 +143,12 @@ export default function BookFilters({ onFilterChange }: Props) {
 
             <button
                 type="submit"
-                className="px-4 py-2 rounded-xl bg-[var(--link-light)] dark:bg-[var(--link-dark)] text-[var(--text-light)] dark:text-[var(--text-dark)] font-bold hover:brightness-110 transition-all"
+                className="px-4 py-2 rounded-xl
+               bg-[var(--link-light)] dark:bg-[var(--link-dark)]
+               text-[var(--text-light)] dark:text-[var(--text-dark)]
+               font-bold hover:brightness-110 transition-all"
             >
                 Search
-            </button>
-
-            <button
-                type="button"
-                onClick={handleReset}
-                className="px-4 py-2 rounded-xl bg-[var(--red-light)] dark:bg-[var(--red-dark)] text-[var(--text-light)] dark:text-[var(--text-dark)] font-bold hover:brightness-110 flex items-center gap-2 transition-all"
-            >
-                ⟳ Reset
             </button>
         </form>
     );
