@@ -1,6 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
-import "./globals.css";
 import Footer from "@/components/layout/Footer";
+import "./globals.css";
 
 export default function RootLayout({
     children,
@@ -9,12 +9,26 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" suppressHydrationWarning>
+            <head>
+                <link rel="manifest" href="/manifest.json" />
+                <meta name="theme-color" content="#9d7f5bdf" />
+                <link
+                    rel="icon"
+                    href="/images/icons/icon-192.png"
+                    sizes="192x192"
+                    type="image/png"
+                />
+                <link
+                    rel="apple-touch-icon"
+                    href="/images/icons/icon-512.png"
+                />
+            </head>
             <body
                 className="
-      relative min-h-screen flex flex-col
-      bg-[var(--bg-gradient-light)] dark:bg-[var(--bg-gradient-dark)]
-      text-[var(--text-light)] dark:text-[var(--text-dark)]
-    "
+                    relative min-h-screen flex flex-col
+                    bg-[var(--bg-gradient-light)] dark:bg-[var(--bg-gradient-dark)]
+                    text-[var(--text-light)] dark:text-[var(--text-dark)]
+                "
             >
                 <Navbar />
                 <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
