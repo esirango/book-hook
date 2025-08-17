@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-    --menu-bg-light: rgb(232, 179, 114);
+    --menu-bg-light: rgb(204, 162, 112);
     --menu-bg-dark: rgba(56, 65, 75, 1);
 
     /* پس‌زمینه */
