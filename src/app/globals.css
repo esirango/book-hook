@@ -2,7 +2,7 @@
 
 :root {
     --menu-bg-light: rgb(232, 179, 114);
-    --menu-bg-dark: rgba(56, 65, 75, 0.85);
+    --menu-bg-dark: rgba(56, 65, 75, 1);
 
     /* پس‌زمینه */
     --bg-gradient-light: linear-gradient(
@@ -36,7 +36,7 @@
     --text-dark: #f5f0e1;
 
     /* رنگ تأکیدی/هدر */
-    --accent-light: #c19a6b;
+    --accent-light: #9d7f5bdf;
     --accent-dark: #8da3b1;
 
     /* پس‌زمینه کارت‌ها */
@@ -105,6 +105,12 @@ a,
 .dark a,
 .dark .accent {
     color: var(--accent-dark);
+}
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 /* انیمیشن‌ها */
