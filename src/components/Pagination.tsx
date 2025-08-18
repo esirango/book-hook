@@ -41,8 +41,8 @@ const Pagination: React.FC<PaginationProps> = ({
                     key={p}
                     onClick={() => setPage(p)}
                     className={`px-3 py-1 rounded-full font-medium transition-colors ${
-                        p === page
-                            ? "bg-green-600 text-white dark:bg-green-800 dark:text-white"
+                        p === Number(page)
+                            ? "bg-green-700 text-white dark:bg-green-600 scale-110 shadow-xl"
                             : "bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600"
                     }`}
                 >
