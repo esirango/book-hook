@@ -69,6 +69,7 @@ export default function CustomSelect({
             backgroundColor: isDark
                 ? "var(--menu-bg-dark)"
                 : "var(--menu-bg-light)",
+            outline: "none",
         },
         option: (active: boolean, selected: boolean, disabled?: boolean) => ({
             cursor: disabled ? "not-allowed" : "pointer",
@@ -90,7 +91,12 @@ export default function CustomSelect({
     };
 
     return (
-        <div style={{ position: "relative", width: "14rem" }}>
+        <div
+            style={{
+                position: "relative",
+                width: "14rem",
+            }}
+        >
             <Listbox value={selectedValue} onChange={onChange}>
                 {({ open }) => (
                     <div style={{ position: "relative" }}>
