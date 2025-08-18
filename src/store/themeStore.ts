@@ -7,10 +7,11 @@ interface ThemeStore {
     isDark: boolean;
     setDark: (value: boolean) => void;
     toggle: () => void;
+    initTheme: () => void;
 }
 
 export const useThemeStore = create<ThemeStore>((set) => ({
-    isDark: Cookies.get("theme") === "dark",
+    isDark: false, // پیش‌فرض
     setDark: (value) => {
         Cookies.set("theme", value ? "dark" : "light", { expires: 365 });
         if (value) {
@@ -31,4 +32,14 @@ export const useThemeStore = create<ThemeStore>((set) => ({
             }
             return { isDark: newValue };
         }),
+    initTheme: () => {
+        const cookieTheme = Cookies.get("theme");
+        const isDark = cookieTheme === "dark";
+        if (isDark) {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+        set({ isDark });
+    },
 }));

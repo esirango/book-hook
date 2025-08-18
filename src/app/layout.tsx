@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
+import ThemeInitializer from "@/components/theme/ThemeInitializer";
 
 export default function RootLayout({
     children,
@@ -25,11 +26,14 @@ export default function RootLayout({
             </head>
             <body
                 className="
-                    relative min-h-screen flex flex-col
-                    bg-[var(--bg-gradient-light)] dark:bg-[var(--bg-gradient-dark)]
-                    text-[var(--text-light)] dark:text-[var(--text-dark)]
-                "
+          relative min-h-screen flex flex-col
+          bg-[var(--bg-gradient-light)] dark:bg-[var(--bg-gradient-dark)]
+          text-[var(--text-light)] dark:text-[var(--text-dark)]
+        "
             >
+                {/* اینجا تم رو مقداردهی اولیه می‌کنیم */}
+                <ThemeInitializer />
+
                 <Navbar />
                 <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
                     {children}
