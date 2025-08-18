@@ -31,7 +31,6 @@ export default function RootLayout({
           text-[var(--text-light)] dark:text-[var(--text-dark)]
         "
             >
-                {/* اینجا تم رو مقداردهی اولیه می‌کنیم */}
                 <ThemeInitializer />
 
                 <Navbar />

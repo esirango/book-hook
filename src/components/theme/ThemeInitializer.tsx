@@ -7,8 +7,8 @@ export default function ThemeInitializer() {
     const initTheme = useThemeStore((s) => s.initTheme);
 
     useEffect(() => {
-        initTheme(); // مقدار اولیه از cookie خونده میشه
+        initTheme();
     }, [initTheme]);
 
-    return null; // چیزی رندر نمی‌کنیم
+    return null;
 }

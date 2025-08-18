@@ -11,7 +11,7 @@ interface ThemeStore {
 }
 
 export const useThemeStore = create<ThemeStore>((set) => ({
-    isDark: false, // پیش‌فرض
+    isDark: false,
     setDark: (value) => {
         Cookies.set("theme", value ? "dark" : "light", { expires: 365 });
         if (value) {
