@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="bg-[var(--card-bg)] text-[var(--text)] py-5 mt-12">
+        <footer className="bg-[var(--card-bg)] text-[var(--text)] py-5 mt-12 z-11">
             <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-center items-center">
                 <span className="text-sm mt-2 sm:mt-0 flex items-center gap-1 text-center">
                     Made with{" "}

@@ -6,7 +6,7 @@
     /* پس‌زمینه */
     --bg-gradient: linear-gradient(
         135deg,
-        #fff7e6 0%,
+        #c6b38b 0%,
         #d4af7f 70%,
         #8b5e3c 100%
     );
@@ -18,7 +18,7 @@
     --text: #473228;
 
     /* رنگ تأکیدی/هدر */
-    --accent: #9d7f5bdf;
+    --accent: #8c6e49;
 
     /* پس‌زمینه کارت‌ها */
     --card-bg: #5c4a38d1;
