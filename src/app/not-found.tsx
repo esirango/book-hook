@@ -9,16 +9,22 @@ import {
 } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-function Sticker({ label, top, left, depth, target }: any) {
+function Sticker({ label, top, left, depth }: any) {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
     const springX = useSpring(x, { stiffness: 5, damping: 30 });
     const springY = useSpring(y, { stiffness: 5, damping: 30 });
 
+    // زمان برای حرکت سینوسی
+    const t = useRef(0);
+
     useAnimationFrame(() => {
-        x.set(x.get() + (target.x / depth - x.get()) * 0.015);
-        y.set(y.get() + (target.y / depth - y.get()) * 0.015);
+        t.current += 0.005; // سرعت حرکت (کوچیک = آروم‌تر)
+        const offsetX = Math.sin(t.current * depth * 0.05) * 15; // شدت حرکت X
+        const offsetY = Math.cos(t.current * depth * 0.05) * 15; // شدت حرکت Y
+        x.set(offsetX);
+        y.set(offsetY);
     });
 
     return (
@@ -33,8 +39,6 @@ function Sticker({ label, top, left, depth, target }: any) {
 
 export default function NotFound() {
     const wrapperRef = useRef<HTMLDivElement | null>(null);
-    const [size, setSize] = useState({ w: 1, h: 1 });
-    const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
     const icons = [
         "🪶",
@@ -72,30 +76,9 @@ export default function NotFound() {
         setStickersData(data);
     }, []);
 
-    useEffect(() => {
-        const onResize = () => {
-            setSize({
-                w: wrapperRef.current?.clientWidth || 1,
-                h: wrapperRef.current?.clientHeight || 1,
-            });
-        };
-        onResize();
-        window.addEventListener("resize", onResize);
-        return () => window.removeEventListener("resize", onResize);
-    }, []);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        const rect = wrapperRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        const mx = e.clientX - rect.left - size.w / 2;
-        const my = e.clientY - rect.top - size.h / 2;
-        setMouse({ x: mx, y: my });
-    };
-
     return (
         <div
             ref={wrapperRef}
-            onMouseMove={handleMouseMove}
             className="fixed inset-0 w-full h-full overflow-hidden"
             style={{
                 color: "var(--text)",
@@ -104,7 +87,7 @@ export default function NotFound() {
         >
             {/* استیکرهای پس‌زمینه */}
             {stickersData.map((s) => (
-                <Sticker key={s.id} {...s} target={mouse} />
+                <Sticker key={s.id} {...s} />
             ))}
 
             {/* محتوای اصلی */}
@@ -114,9 +97,8 @@ export default function NotFound() {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ type: "spring", stiffness: 100, damping: 12 }}
                     className="font-extrabold bg-[var(--accent)] tracking-tight 
-text-[90px] sm:text-[120px] md:text-[160px] bg-clip-text text-transparent 
-drop-shadow-[2px_2px_0_var(--shadow)] 
-"
+                        text-[90px] sm:text-[120px] md:text-[160px] bg-clip-text text-transparent 
+                        drop-shadow-[2px_2px_0_var(--shadow)]"
                 >
                     404
                 </motion.h1>
@@ -125,7 +107,7 @@ drop-shadow-[2px_2px_0_var(--shadow)]
                     initial={{ y: 10, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.1 }}
-                    className="mt-4 max-w-lg text-base sm:text-lg"
+                    className="mt-4 max-w-lg lg:text-xl sm:text-lg drop-shadow-[2px_2px_0_var(--shadow)]"
                     style={{ color: "var(--text)" }}
                 >
                     The page you were looking for was not found.
