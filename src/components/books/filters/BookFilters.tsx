@@ -12,7 +12,6 @@ import {
 import { GENRES } from "@/store/constants/genres";
 import CustomSelect from "./CustomSelect";
 import { RefreshCcw, Search } from "lucide-react";
-import { useThemeStore } from "@/store/themeStore";
 
 interface Props {
     onFilterChange: (filters: Record<string, string>) => void;
@@ -22,7 +21,6 @@ export default function BookFilters({ onFilterChange }: Props) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const initialized = useRef(false);
-    const { isDark } = useThemeStore();
 
     const [filters, setFilters] = useState({
         author: "",
@@ -99,32 +97,11 @@ export default function BookFilters({ onFilterChange }: Props) {
         { key: "language", options: LANGUAGES, placeholder: "Select Language" },
     ];
 
-    const styles = {
-        form: {
-            display: "flex",
-            flexWrap: "wrap" as const,
-            justifyContent: "center",
-            gap: "1rem",
-            alignItems: "center",
-            marginBottom: "1.5rem",
-        },
-        input: {
-            width: "14rem",
-            padding: "0.5rem 0.75rem",
-            borderRadius: "0.75rem",
-            outline: "none",
-            border: `1px solid ${isDark ? "var(--accent)" : "var(--accent)"}`,
-            backgroundColor: isDark ? "var(--input-bg)" : "var(--input-bg)",
-            color: isDark ? "var(--input-text)" : "var(--input-text)",
-            placeholderColor: isDark
-                ? "var(--placeholder)"
-                : "var(--placeholder)",
-            transition: "all 0.2s",
-        },
-    };
-
     return (
-        <form onSubmit={handleSubmit} style={styles.form}>
+        <form
+            onSubmit={handleSubmit}
+            className="flex flex-wrap justify-center items-center gap-4 mb-6"
+        >
             {/* Author & Title Inputs */}
             {(["author", "title"] as const).map((field) => (
                 <input
@@ -133,9 +110,17 @@ export default function BookFilters({ onFilterChange }: Props) {
                     placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
                     value={filters[field]}
                     onChange={(e) => handleChange(field, e.target.value)}
-                    style={styles.input}
+                    className="
+            w-56 px-3 py-2 rounded-xl 
+            border border-[var(--accent)] 
+            bg-[var(--input-bg)] text-[var(--input-text)] 
+            placeholder-[var(--placeholder)]
+            focus:outline-none focus:ring-2 focus:ring-[var(--accent)]
+            transition
+          "
                 />
             ))}
+
             {/* Select Fields */}
             {selectFields.map(({ key, options, placeholder }) => (
                 <CustomSelect
@@ -146,25 +131,34 @@ export default function BookFilters({ onFilterChange }: Props) {
                     onChange={(val: string) => handleChange(key, val)}
                 />
             ))}
-            {/* Action Buttons */}{" "}
+
+            {/* Action Buttons */}
             <div className="flex gap-2">
-                {" "}
                 <button
                     type="submit"
-                    className=" cursor-pointer px-4 py-2 flex items-center gap-2 rounded-xl bg-[var(--link)] text-[var(--text)] font-bold hover:brightness-110 transition-all "
+                    className="
+            flex items-center gap-2 px-4 py-2 rounded-xl font-bold
+            cursor-pointer transition-all
+            bg-[var(--link)] text-[var(--text)]
+            hover:brightness-110
+          "
                 >
-                    {" "}
-                    <Search size={18} /> Search{" "}
-                </button>{" "}
+                    <Search size={18} /> Search
+                </button>
+
                 <button
                     type="button"
                     onClick={handleReset}
-                    className=" cursor-pointer px-4 py-2 flex items-center gap-2 rounded-xl bg-[var(--bg)] text-[var(--text)] border border-[var(--accent)] font-semibold hover:brightness-105 transition-all "
+                    className="
+            flex items-center gap-2 px-4 py-2 rounded-xl font-semibold
+            cursor-pointer transition-all
+            bg-[var(--bg)] text-[var(--text)] border border-[var(--accent)]
+            hover:brightness-105
+          "
                 >
-                    {" "}
-                    <RefreshCcw size={18} />{" "}
-                </button>{" "}
-            </div>{" "}
+                    <RefreshCcw size={18} />
+                </button>
+            </div>
         </form>
     );
 }

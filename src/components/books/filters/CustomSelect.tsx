@@ -5,8 +5,6 @@ import { ChevronDown } from "lucide-react";
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { useThemeStore } from "@/store/themeStore";
-
 interface Option {
     id?: string;
     code?: string;
@@ -29,72 +27,27 @@ export default function CustomSelect({
     onChange,
     placeholder = "-",
 }: CustomSelectProps) {
-    const { isDark } = useThemeStore();
-
     const isValidValue = options.some(
         (opt) => opt.id === value || opt.code === value || opt.value === value
     );
 
     const selectedValue = isValidValue ? value : "";
 
-    const styles = {
-        button: {
-            cursor: "pointer",
-            padding: "0.5rem 1rem",
-            width: "100%",
-            textAlign: "left" as const,
-            borderRadius: "0.75rem",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            border: `1px solid ${isDark ? "var(--accent)" : "var(--accent)"}`,
-            backgroundColor: isDark ? "var(--accent)" : "var(--accent)",
-            color: isDark ? "var(--text)" : "var(--input-text)",
-            outline: "none",
-            transition: "all 0.2s ease",
-        },
-        optionsContainer: {
-            position: "absolute" as const,
-            marginTop: "0.25rem",
-            width: "100%",
-            maxHeight: "15rem",
-            overflow: "auto" as const,
-            borderRadius: "0.75rem",
-            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-            zIndex: 20,
-            backgroundColor: isDark ? "var(--menu-bg)" : "var(--menu-bg)",
-            outline: "none",
-        },
-        option: (active: boolean, selected: boolean, disabled?: boolean) => ({
-            cursor: disabled ? "not-allowed" : "pointer",
-            padding: "0.5rem 1rem",
-            transition: "background-color 0.2s",
-            fontWeight: selected ? 600 : 400,
-            opacity: disabled ? 0.5 : 1,
-            backgroundColor: active
-                ? isDark
-                    ? "var(--accent)"
-                    : "var(--accent)"
-                : "transparent",
-        }),
-        icon: {
-            width: "1rem",
-            height: "1rem",
-            color: isDark ? "#D1D5DB" : "#9CA3AF",
-        },
-    };
-
     return (
-        <div
-            style={{
-                position: "relative",
-                width: "14rem",
-            }}
-        >
+        <div className="relative w-56">
             <Listbox value={selectedValue} onChange={onChange}>
                 {({ open }) => (
-                    <div style={{ position: "relative" }}>
-                        <Listbox.Button style={styles.button}>
+                    <div className="relative">
+                        {/* دکمه */}
+                        <Listbox.Button
+                            className={`
+                flex w-full cursor-pointer items-center justify-between 
+                rounded-xl border px-4 py-2 text-left transition 
+                border-[var(--accent)] bg-[var(--accent)] 
+                text-[var(--input-text)] dark:text-[var(--text)]
+                focus:outline-none
+              `}
+                        >
                             {options.find(
                                 (opt) =>
                                     opt.id === value ||
@@ -108,9 +61,10 @@ export default function CustomSelect({
                                         opt.value === value
                                 )?.label ||
                                 placeholder}
-                            <ChevronDown style={styles.icon} />
+                            <ChevronDown className="h-4 w-4 text-gray-400 dark:text-gray-300" />
                         </Listbox.Button>
 
+                        {/* لیست گزینه‌ها */}
                         <AnimatePresence>
                             {open && (
                                 <Listbox.Options
@@ -118,7 +72,10 @@ export default function CustomSelect({
                                     initial={{ opacity: 0, y: -5 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -5 }}
-                                    style={styles.optionsContainer}
+                                    className={`
+                    absolute mt-1 max-h-60 w-full overflow-auto rounded-xl 
+                    shadow-lg z-20 bg-[var(--menu-bg)] focus:outline-none
+                  `}
                                 >
                                     {options.map((opt) => (
                                         <Listbox.Option
@@ -132,11 +89,20 @@ export default function CustomSelect({
                                         >
                                             {({ active, selected }) => (
                                                 <div
-                                                    style={styles.option(
-                                                        active,
-                                                        selected,
-                                                        opt.disabled
-                                                    )}
+                                                    className={`
+                            cursor-pointer px-4 py-2 transition 
+                            ${
+                                active
+                                    ? "bg-[var(--accent)] text-[var(--text)]"
+                                    : ""
+                            }
+                            ${selected ? "font-semibold" : ""}
+                            ${
+                                opt.disabled
+                                    ? "cursor-not-allowed opacity-50"
+                                    : ""
+                            }
+                          `}
                                                 >
                                                     {opt.name || opt.label}
                                                 </div>
