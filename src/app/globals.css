@@ -1,77 +1,70 @@
 @import "tailwindcss";
 
 :root {
-    --menu-bg-light: rgb(204, 162, 112);
-    --menu-bg-dark: rgba(56, 65, 75, 1);
+    --menu-bg: rgb(204, 162, 112);
 
     /* پس‌زمینه */
-    --bg-gradient-light: linear-gradient(
+    --bg-gradient: linear-gradient(
         135deg,
         #fff7e6 0%,
         #d4af7f 70%,
         #8b5e3c 100%
     );
-    --bg-gradient-dark: linear-gradient(
+
+    /* هاور لینک‌ها */
+    --link-hover: rgba(193, 154, 107, 0.6);
+
+    /* رنگ متن */
+    --text: #5c4033;
+
+    /* رنگ تأکیدی/هدر */
+    --accent: #9d7f5bdf;
+
+    /* پس‌زمینه کارت‌ها */
+    --card-bg: #5c4a38d1;
+
+    /* متن و پس‌زمینه ورودی‌ها */
+    --input-bg: rgba(226, 210, 178, 0.681);
+    --input-text: #4a3320;
+
+    /* Placeholder */
+    --placeholder: #a1866f;
+
+    /* سایه‌ها و دکمه‌ها */
+    --shadow: rgba(0, 0, 0, 0.15);
+    --btn-hover: #b58c5b;
+
+    /* لینک‌ها */
+    --link: #5c3e23;
+}
+
+.dark {
+    --menu-bg: rgba(56, 65, 75, 1);
+
+    --bg-gradient: linear-gradient(
         135deg,
         #2a2f36 0%,
         #4b3f2f 50%,
         #3c2f21 100%
     );
 
-    /* هاور لینک‌ها */
-    --link-hover-light: rgba(
-        193,
-        154,
-        107,
-        0.6
-    ); /* رنگ قهوه‌ای روشن‌تر و شفافیت کمتر */
-    --link-hover-dark: rgba(
-        141,
-        163,
-        177,
-        0.6
-    ); /* رنگ آبی-خاکستری برای دارک مود */
-    /* رنگ متن */
-    --text-light: #5c4033;
-    --text-dark: #f5f0e1;
+    --link-hover: rgba(141, 163, 177, 0.6);
+    --text: #f5f0e1;
+    --accent: #8da3b1;
+    --card-bg: rgba(40, 38, 36, 0.65);
 
-    /* رنگ تأکیدی/هدر */
-    --accent-light: #9d7f5bdf;
-    --accent-dark: #8da3b1;
+    --input-bg: rgba(38, 34, 30, 0.35);
+    --input-text: #c9d6d5;
 
-    /* پس‌زمینه کارت‌ها */
-    --card-bg-light: rgba(255, 250, 240, 0.9);
-    --card-bg-dark: rgba(40, 38, 36, 0.65);
-
-    /* متن و پس‌زمینه ورودی‌ها */
-    --input-bg-light: rgba(226, 210, 178, 0.681);
-    --input-bg-dark: rgba(38, 34, 30, 0.35);
-    --input-text-light: #4a3320;
-    --input-text-dark: #c9d6d5;
-
-    /* Placeholder */
-    --placeholder-light: #a1866f;
-    --placeholder-dark: #d0cbc6;
-
-    /* سایه‌ها و دکمه‌ها */
-    --shadow-light: rgba(0, 0, 0, 0.15);
-    --shadow-dark: rgba(0, 0, 0, 0.5);
-    --btn-hover-light: #b58c5b;
-    --btn-hover-dark: #d3a871;
-
-    /* لینک‌ها */
-    --link-light: #5c3e23;
-    --link-dark: #e0c78f;
+    --placeholder: #d0cbc6;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --btn-hover: #d3a871;
+    --link: #e0c78f;
 }
 
 body {
-    background: var(--bg-gradient-light);
-    color: var(--text-light);
-}
-
-.dark body {
-    background: var(--bg-gradient-dark);
-    color: var(--text-dark);
+    background: var(--bg-gradient);
+    color: var(--text);
 }
 
 /* placeholder image pattern */
@@ -87,24 +80,16 @@ img[alt="placeholder"] {
 
 /* دکمه‌ها */
 button {
-    background-color: var(--accent-light);
-    color: var(--text-light);
+    background-color: var(--accent);
+    color: var(--text);
     transition: background-color 0.3s, color 0.3s;
-}
-.dark button {
-    background-color: var(--accent-dark);
-    color: var(--text-dark);
 }
 
 /* لینک‌ها و آکسن‌ها */
 a,
 .accent {
-    color: var(--accent-light);
+    color: var(--accent);
     transition: color 0.3s;
-}
-.dark a,
-.dark .accent {
-    color: var(--accent-dark);
 }
 
 select {
@@ -142,7 +127,6 @@ select {
     scrollbar-width: thin;
     scrollbar-color: rgba(156, 120, 85, 0.7) rgba(0, 0, 0, 0.05);
 }
-
 .dark * {
     scrollbar-color: rgba(141, 163, 177, 0.7) rgba(255, 255, 255, 0.05);
 }

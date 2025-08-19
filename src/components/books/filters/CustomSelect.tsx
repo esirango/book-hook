@@ -47,13 +47,9 @@ export default function CustomSelect({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            border: `1px solid ${
-                isDark ? "var(--accent-dark)" : "var(--accent-light)"
-            }`,
-            backgroundColor: isDark
-                ? "var(--accent-dark)"
-                : "var(--accent-light)",
-            color: isDark ? "var(--text-dark)" : "var(--input-text-light)",
+            border: `1px solid ${isDark ? "var(--accent)" : "var(--accent)"}`,
+            backgroundColor: isDark ? "var(--accent)" : "var(--accent)",
+            color: isDark ? "var(--text)" : "var(--input-text)",
             outline: "none",
             transition: "all 0.2s ease",
         },
@@ -66,9 +62,7 @@ export default function CustomSelect({
             borderRadius: "0.75rem",
             boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
             zIndex: 20,
-            backgroundColor: isDark
-                ? "var(--menu-bg-dark)"
-                : "var(--menu-bg-light)",
+            backgroundColor: isDark ? "var(--menu-bg)" : "var(--menu-bg)",
             outline: "none",
         },
         option: (active: boolean, selected: boolean, disabled?: boolean) => ({
@@ -79,8 +73,8 @@ export default function CustomSelect({
             opacity: disabled ? 0.5 : 1,
             backgroundColor: active
                 ? isDark
-                    ? "var(--accent-dark)"
-                    : "var(--accent-light)"
+                    ? "var(--accent)"
+                    : "var(--accent)"
                 : "transparent",
         }),
         icon: {

@@ -39,7 +39,7 @@ export default function ThemeSwitcher() {
                     className={`absolute left-0 w-3 h-1.5 rounded-t-full -translate-x-1/2 ${
                         isDark
                             ? "bg-yellow-300 opacity-80 blur-sm z-50"
-                            : "bg-yellow-100 opacity-40 blur-sm animate-light-flicker z-40"
+                            : "bg-yellow-100 opacity-40 blur-sm animate-flicker z-40"
                     }`}
                 ></div>
 

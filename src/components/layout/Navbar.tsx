@@ -27,9 +27,9 @@ export default function Navbar() {
     if (!mounted) return null;
 
     const books = [
-        { color: "var(--placeholder-light)", label: "Book 1" },
-        { color: "var(--accent-light)", label: "Book 2" },
-        { color: "var(--card-bg-light)", label: "Book 3" },
+        { color: "var(--placeholder)", label: "Book 1" },
+        { color: "var(--input-bg)", label: "Book 2" },
+        { color: "var(--accent)", label: "Book 3" },
     ];
 
     const toggleBooks = () => {
@@ -39,12 +39,12 @@ export default function Navbar() {
 
     return (
         <nav className="sticky top-0 z-50 backdrop-blur-md shadow-md">
-            <div className="bg-[var(--card-bg-light)] dark:bg-[var(--card-bg-dark)] relative z-50">
+            <div className="bg-[var(--input-bg)] relative z-50">
                 <div className="container mx-auto px-4 py-3 flex items-center justify-between">
                     {/* لوگو */}
                     <Link
                         href="/"
-                        className="flex items-center gap-2 text-[var(--text-light)] dark:text-[var(--text-dark)] font-extrabold tracking-wide text-2xl"
+                        className="flex items-center gap-2 text-[var(--text)] font-extrabold tracking-wide text-2xl"
                     >
                         📔 <span>Book Hook</span>
                     </Link>
@@ -55,7 +55,7 @@ export default function Navbar() {
                             <Link
                                 key={l.href}
                                 href={l.href}
-                                className="text-[var(--text-light)]/90 hover:text-[var(--accent-light)] dark:text-[var(--text-dark)]/90 dark:hover:text-[var(--accent-dark)] transition-colors"
+                                className="text-[var(--text)]/90 hover:text-[var(--accent)] transition-colors"
                             >
                                 {l.label}
                             </Link>

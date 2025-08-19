@@ -41,8 +41,7 @@ function TagList({ title, items, paramKey }: TagListProps) {
                         key={i}
                         onClick={() => handleTagClick(item)}
                         className="px-3 py-1 rounded-xl text-sm shadow-sm cursor-pointer
-                                   bg-[var(--input-bg-light)] text-[var(--input-text-light)]
-                                   dark:bg-[var(--input-bg-dark)] dark:text-[var(--input-text-dark)]
+                                   bg-[var(--input-bg)] text-[var(--input-text)]
                                    hover:brightness-110 transition-all"
                     >
                         {item}
@@ -101,7 +100,7 @@ export default function BookDetailPage({
         "Unknown";
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-[var(--card-bg-light)] dark:bg-[var(--card-bg-dark)] rounded-2xl shadow-lg">
+        <div className="max-w-3xl mx-auto p-6 bg-[var(--card-bg)] dark:bg-[var(--card-bg)] rounded-2xl shadow-lg">
             <div className="flex flex-col md:flex-row gap-6">
                 <img
                     src={coverUrl}
@@ -110,7 +109,7 @@ export default function BookDetailPage({
                 />
                 <div className="flex-1 flex flex-col justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold mb-3 text-[var(--accent-light)] dark:text-[var(--accent-dark)]">
+                        <h1 className="text-3xl font-bold mb-3 text-[var(--accent)]">
                             {book.title || "Untitled"}
                         </h1>
                         <p className="mb-4">

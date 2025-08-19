@@ -42,7 +42,7 @@ export default function Loading() {
         <div className="flex flex-col items-center justify-center gap-6 min-h-screen">
             <div className="relative w-56 h-40 flex items-center justify-center overflow-hidden">
                 <div className="w-44 h-32 perspective-[800px] flex items-center justify-center relative z-10">
-                    <div className="relative flex justify-center items-center w-full rounded-lg shadow-xl h-32 bg-[var(--card-bg-light)] dark:bg-[var(--card-bg-dark)]">
+                    <div className="relative flex justify-center items-center w-full rounded-lg shadow-xl h-32 bg-[var(--card-bg)] ">
                         <div className="relative w-52 h-32 perspective-300000 mx-auto">
                             {pages.map((_, i) => {
                                 const totalFlips = pageFlips[i];
@@ -84,7 +84,7 @@ export default function Loading() {
             </div>
 
             {/* متن لودینگ */}
-            <div className="text-[var(--accent-light)] dark:text-[var(--accent-dark)] font-medium text-center text-lg">
+            <div className="text-[var(--accent)] dark:text-[var(--accent)] font-medium text-center text-lg">
                 Loading
                 <span className="dots">
                     <span>.</span>

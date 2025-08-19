@@ -113,18 +113,12 @@ export default function BookFilters({ onFilterChange }: Props) {
             padding: "0.5rem 0.75rem",
             borderRadius: "0.75rem",
             outline: "none",
-            border: `1px solid ${
-                isDark ? "var(--accent-dark)" : "var(--accent-light)"
-            }`,
-            backgroundColor: isDark
-                ? "var(--input-bg-dark)"
-                : "var(--input-bg-light)",
-            color: isDark
-                ? "var(--input-text-dark)"
-                : "var(--input-text-light)",
+            border: `1px solid ${isDark ? "var(--accent)" : "var(--accent)"}`,
+            backgroundColor: isDark ? "var(--input-bg)" : "var(--input-bg)",
+            color: isDark ? "var(--input-text)" : "var(--input-text)",
             placeholderColor: isDark
-                ? "var(--placeholder-dark)"
-                : "var(--placeholder-light)",
+                ? "var(--placeholder)"
+                : "var(--placeholder)",
             transition: "all 0.2s",
         },
     };
@@ -157,7 +151,7 @@ export default function BookFilters({ onFilterChange }: Props) {
                 {" "}
                 <button
                     type="submit"
-                    className=" cursor-pointer px-4 py-2 flex items-center gap-2 rounded-xl bg-[var(--link-light)] dark:bg-[var(--link-dark)] text-[var(--text-light)] dark:text-[var(--text-dark)] font-bold hover:brightness-110 transition-all "
+                    className=" cursor-pointer px-4 py-2 flex items-center gap-2 rounded-xl bg-[var(--link)] text-[var(--text)] font-bold hover:brightness-110 transition-all "
                 >
                     {" "}
                     <Search size={18} /> Search{" "}
@@ -165,7 +159,7 @@ export default function BookFilters({ onFilterChange }: Props) {
                 <button
                     type="button"
                     onClick={handleReset}
-                    className=" cursor-pointer px-4 py-2 flex items-center gap-2 rounded-xl bg-[var(--bg-light)] dark:bg-[var(--bg-dark)] text-[var(--text-light)] dark:text-[var(--text-dark)] border border-[var(--accent-light)] dark:border-[var(--accent-dark)] font-semibold hover:brightness-105 transition-all "
+                    className=" cursor-pointer px-4 py-2 flex items-center gap-2 rounded-xl bg-[var(--bg)] text-[var(--text)] border border-[var(--accent)] font-semibold hover:brightness-105 transition-all "
                 >
                     {" "}
                     <RefreshCcw size={18} />{" "}

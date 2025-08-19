@@ -10,13 +10,13 @@ export default function BookCard({ book }: { book: any }) {
 
     return (
         <div
-            className="rounded-xl p-4 bg-[var(--card-bg-light)] dark:bg-[var(--card-bg-dark)]
+            className="rounded-xl p-4 bg-[var(--card-bg)] 
     flex flex-col transition-all duration-300
     shadow-sm hover:-translate-y-1 hover:shadow-lg"
         >
             <div
                 className="w-full h-48 mb-4 rounded overflow-hidden flex items-center justify-center
-      bg-[var(--bg-light)] dark:bg-[var(--bg-dark)]"
+      bg-[var(--bg)] "
             >
                 {coverUrl ? (
                     <img
@@ -34,7 +34,7 @@ export default function BookCard({ book }: { book: any }) {
             <h3 className="font-bold text-lg mb-2 truncate">
                 {book.title || "Untitled"}
             </h3>
-            <div className="text-sm text-[var(--text-light)] dark:text-[var(--text-dark)] mb-2 truncate">
+            <div className="text-sm text-[var(--text)] mb-2 truncate">
                 {book.author_name?.join(", ") || "Unknown author"}
             </div>
             {book.first_publish_year && (
@@ -44,7 +44,7 @@ export default function BookCard({ book }: { book: any }) {
             )}
             <Link
                 href={`/books/${book.key.split("/").pop()}`}
-                className="mt-auto text-[var(--accent-light)] dark:text-[var(--accent-dark)] hover:underline truncate"
+                className="mt-auto text-[var(--accent)] hover:underline truncate"
             >
                 More details
             </Link>

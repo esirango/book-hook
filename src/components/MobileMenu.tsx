@@ -48,8 +48,8 @@ function MobileMenu({
   "
                         style={{
                             backgroundColor: isDark
-                                ? "var(--menu-bg-dark)"
-                                : "var(--menu-bg-light)",
+                                ? "var(--menu-bg)"
+                                : "var(--menu-bg)",
                         }}
                     >
                         <nav className="px-5 py-4">
@@ -66,8 +66,8 @@ function MobileMenu({
             "
                                             style={{
                                                 color: isDark
-                                                    ? "var(--text-dark)"
-                                                    : "var(--text-light)",
+                                                    ? "var(--text)"
+                                                    : "var(--text)",
                                             }}
                                         >
                                             {l.label}

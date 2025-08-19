@@ -27,8 +27,8 @@ export default function RootLayout({
             <body
                 className="
           relative min-h-screen flex flex-col
-          bg-[var(--bg-gradient-light)] dark:bg-[var(--bg-gradient-dark)]
-          text-[var(--text-light)] dark:text-[var(--text-dark)]
+          bg-[var(--bg-gradient)] 
+          text-[var(--text)] 
         "
             >
                 <ThemeInitializer />
