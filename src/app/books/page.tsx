@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import BookCard from "@/components/BookCard";
+import BookCard from "@/components/books/BookCard";
 import Loading from "@/components/Loading";
 import Pagination from "@/components/Pagination";
 import { useBooks, ITEMS_PER_PAGE } from "@/hooks/useBooks";
