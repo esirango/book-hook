@@ -23,6 +23,8 @@
     /* پس‌زمینه کارت‌ها */
     --card-bg: #5c4a38d1;
 
+    --filters-bg: #5c4a38;
+
     /* متن و پس‌زمینه ورودی‌ها */
     --input-bg: rgba(226, 210, 178, 0.681);
     --input-text: #4a3320;
@@ -52,6 +54,8 @@
     --text: #f5f0e1;
     --accent: #8da3b1;
     --card-bg: rgba(40, 38, 36, 0.65);
+
+    --filters-bg: rgba(40, 38, 36, 0.85);
 
     --input-bg: rgba(38, 34, 30, 0.35);
     --input-text: #c9d6d5;

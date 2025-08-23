@@ -7,6 +7,7 @@ import Pagination from "@/components/Pagination";
 import { useBooks, ITEMS_PER_PAGE } from "@/hooks/useBooks";
 import { buildOpenLibraryQuery } from "../../../utils/buildOpenLibraryQuery";
 import BookFilters from "@/components/books/filters/BookFilters";
+import WoodenLibraryScene from "@/components/Library";
 
 export default function BooksPage() {
     const [filters, setFilters] = useState<Record<string, string>>({});
@@ -41,11 +42,7 @@ export default function BooksPage() {
                 </div>
             )}
 
-            {isError && (
-                <div className="text-red-600 font-semibold text-center mt-6">
-                    Error loading books!
-                </div>
-            )}
+            {isError && <WoodenLibraryScene />}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-4">
                 {books.map((book: any) => (
@@ -62,13 +59,7 @@ export default function BooksPage() {
                 />
             )}
 
-            {!isLoading && books.length === 0 && (
-                <div className="text-center text-[#355E3B] dark:text-[#A3D9A5] mt-12">
-                    No books found.
-                    <br />
-                    Try again later.
-                </div>
-            )}
+            {!isLoading && books.length === 0 && <WoodenLibraryScene />}
         </div>
     );
 }
