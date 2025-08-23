@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ThemeSwitcher from "../theme/ThemeSwitcher";
 import { motion } from "framer-motion";
 import MobileMenu from "../MobileMenu";
+import { useThemeStore } from "@/store/themeStore";
 
 const navLinks = [
     { href: "/", label: "Home" },
@@ -14,6 +15,8 @@ export default function Navbar() {
     const [open, setOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
     const [bookOrder, setBookOrder] = useState<Array<number>>([0, 1, 2]);
+
+    const { isDark } = useThemeStore();
 
     useEffect(() => setMounted(true), []);
     useEffect(() => {
@@ -44,9 +47,20 @@ export default function Navbar() {
                     {/* لوگو */}
                     <Link
                         href="/"
-                        className="flex items-center gap-2 text-[var(--text)] font-extrabold tracking-wide text-2xl"
+                        className="flex items-center gap-2 text-[var(--text)] font-extrabold tracking-wide"
                     >
-                        📔 <span>Book Hook</span>
+                        <img
+                            src={
+                                isDark
+                                    ? "/images/icons/logo-dark.png"
+                                    : "/images/icons/logo-light.png"
+                            }
+                            className="w-10"
+                            alt="book hook logo"
+                        />{" "}
+                        <span className="text-[18px] sm:text-2xl">
+                            Book Hook
+                        </span>
                     </Link>
 
                     {/* لینک‌ها دسکتاپ */}
