@@ -111,7 +111,7 @@ export default function BookFilters({ onFilterChange }: BookFiltersProps) {
                 className="p-5 rounded-2xl shadow-md bg-[var(--filters-bg)]"
             >
                 {/* Inputs اولیه */}
-                <div className="flex gap-4 flex-row justify-center items-center">
+                <div className="flex gap-4 lg:flex-row justify-center flex-col items-center">
                     {(["author", "title"] as const).map((field) => (
                         <input
                             key={field}
@@ -137,7 +137,7 @@ export default function BookFilters({ onFilterChange }: BookFiltersProps) {
                     <button
                         type="button"
                         onClick={() => setOpenDropdown(!openDropdown)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl font-medium bg-[var(--bg)] border border-[var(--accent)] text-[var(--link)] hover:brightness-105 transition whitespace-nowrap"
+                        className="flex w-full justify-center items-center gap-2 px-3 py-2 rounded-xl font-medium bg-[var(--bg)] border border-[var(--accent)] text-[var(--link)] hover:brightness-105 transition whitespace-nowrap"
                     >
                         More Filters
                         <ChevronDown
@@ -180,29 +180,16 @@ export default function BookFilters({ onFilterChange }: BookFiltersProps) {
                 </AnimatePresence>
                 {/* Action Buttons */}
                 <div className="flex justify-center gap-3 mt-4">
-                    <button
-                        type="submit"
-                        className="
-            flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold
-            cursor-pointer transition-all
-            bg-[var(--link)] text-[var(--text)]
-            hover:brightness-110
-          "
-                    >
+                    <button type="submit" className="btn-search">
                         <Search size={18} /> Search
                     </button>
 
                     <button
                         type="button"
                         onClick={handleReset}
-                        className="
-            flex items-center gap-2 px-6 py-2.5 rounded-xl font-semibold
-            cursor-pointer transition-all
-            bg-[var(--bg)] text-[var(--text)] border border-[var(--accent)]
-            hover:brightness-105
-          "
+                        className="btn-reset"
                     >
-                        <RefreshCcw size={18} />
+                        <RefreshCcw size={18} className="reset-icon" />
                     </button>
                 </div>
             </motion.div>

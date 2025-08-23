@@ -34,7 +34,10 @@
 
     /* سایه‌ها و دکمه‌ها */
     --shadow: rgba(0, 0, 0, 0.15);
-    --btn-hover: #b58c5b;
+    --btn-hover: rgba(204, 177, 145, 0.514);
+
+    --primary-button: #b3915afa;
+    --secondary-button: #b79866a5;
 
     /* لینک‌ها */
     --link: #5c3e23;
@@ -62,8 +65,11 @@
 
     --placeholder: #d0cbc6;
     --shadow: rgba(0, 0, 0, 0.5);
-    --btn-hover: #d3a871;
     --link: #e0c78f;
+    --btn-hover: #8da3b1d2;
+
+    --primary-button: #759bb2;
+    --secondary-button: #8da3b1b9;
 }
 
 body {
@@ -87,6 +93,35 @@ button {
     background-color: var(--accent);
     color: var(--text);
     transition: background-color 0.3s, color 0.3s;
+}
+
+/* دکمه Search */
+.btn-search {
+    @apply flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold cursor-pointer transition-all duration-300;
+    background-color: var(--secondary-button);
+    color: var(--text);
+}
+
+.btn-search:hover {
+    background-color: var(--btn-hover);
+    filter: brightness(1.05);
+}
+
+/* دکمه Reset */
+.btn-reset {
+    @apply flex items-center gap-2 px-6 py-2.5 rounded-xl font-semibold cursor-pointer transition-all duration-300;
+    background-color: var(--secondary-button);
+    color: var(--text);
+}
+
+/* آیکون داخل ریست */
+.reset-icon {
+    transition: transform 0.6s ease-in-out;
+}
+
+/* چرخش آیکون موقع هاور روی دکمه */
+.btn-reset:hover .reset-icon {
+    transform: rotate(180deg);
 }
 
 /* لینک‌ها و آکسن‌ها */
