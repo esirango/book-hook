@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-    --menu-bg: rgb(204, 162, 112);
+    --menu-bg: rgb(152, 122, 86);
 
     /* پس‌زمینه */
     --bg-gradient: linear-gradient(
