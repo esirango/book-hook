@@ -52,6 +52,8 @@
     --library-shadow: rgba(120, 80, 50, 0.5); /* سایه نرم */
     --library-firefly-glow1: rgba(255, 240, 190, 0.8); /* طلایی ملایم */
     --library-firefly-glow2: rgba(190, 255, 170, 0.4);
+
+    --scroll-bg: rgba(0, 0, 0, 0.05);
 }
 
 .dark {
@@ -90,6 +92,8 @@
     --library-shadow: rgba(0, 0, 0, 0.421); /* سایه طبیعی‌تر */
     --library-firefly-glow1: rgba(255, 230, 170, 0.85); /* نور کرم گرم */
     --library-firefly-glow2: rgba(180, 255, 200, 0.45); /* سبز لطیف */
+
+    --scroll-bg: rgba(0, 0, 0, 0.85);
 }
 
 body {
@@ -157,37 +161,9 @@ select {
     -moz-appearance: none;
 }
 
-/* برای مرورگرهای Webkit مثل Chrome و Safari */
-::-webkit-scrollbar {
-    width: 6px; /* ضخامت اسکرول */
-    height: 6px; /* برای افقی */
-}
-
-::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.05); /* رنگ پس‌زمینه */
-}
-
-::-webkit-scrollbar-thumb {
-    background-color: rgba(156, 120, 85, 0.7); /* رنگ نوار */
-    border-radius: 10px; /* گرد بودن گوشه‌ها */
-    border: 2px solid transparent; /* حاشیه برای فاصله */
-}
-
-/* حالت دارک */
-.dark::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-}
-.dark::-webkit-scrollbar-thumb {
-    background-color: rgba(141, 163, 177, 0.7);
-}
-
-/* برای Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(156, 120, 85, 0.7) rgba(0, 0, 0, 0.05);
-}
-.dark * {
-    scrollbar-color: rgba(141, 163, 177, 0.7) rgba(255, 255, 255, 0.05);
+    scrollbar-color: var(--primary-button) var(--scroll-bg);
 }
 
 /* انیمیشن‌ها */
