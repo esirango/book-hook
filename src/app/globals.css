@@ -41,6 +41,17 @@
 
     /* لینک‌ها */
     --link: #5c3e23;
+
+    /* 🎨 رنگ‌های اختصاصی کتابخونه (لایت مود) */
+
+    --library-shelf-bg: #a27a4d6d; /* قهوه‌ای روشن طبیعی */
+    --library-shelf-border: #a6794b59; /* قهوه‌ای کاراملی */
+    --library-title: #4b2f1fa3; /* قهوه‌ای سوخته برای تیتر */
+    --library-text: #5a4333; /* قهوه‌ای ملایم */
+    --library-text-alt: #7a553c; /* قهوه‌ای طلایی */
+    --library-shadow: rgba(120, 80, 50, 0.5); /* سایه نرم */
+    --library-firefly-glow1: rgba(255, 240, 190, 0.8); /* طلایی ملایم */
+    --library-firefly-glow2: rgba(190, 255, 170, 0.4);
 }
 
 .dark {
@@ -70,6 +81,15 @@
 
     --primary-button: #759bb2;
     --secondary-button: #8da3b1b9;
+
+    --library-shelf-bg: #3a261874; /* قهوه‌ای تیره‌تر و عمیق */
+    --library-shelf-border: #6b4c2c52; /* قهوه‌ای طلایی-سوخته */
+    --library-title: #b49f79f0; /* طلایی روشن */
+    --library-text: #ad9b7c; /* کرم روشن */
+    --library-text-alt: #ad9b7c; /* قهوه‌ای عسلی */
+    --library-shadow: rgba(0, 0, 0, 0.421); /* سایه طبیعی‌تر */
+    --library-firefly-glow1: rgba(255, 230, 170, 0.85); /* نور کرم گرم */
+    --library-firefly-glow2: rgba(180, 255, 200, 0.45); /* سبز لطیف */
 }
 
 body {
