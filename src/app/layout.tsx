@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
 import ThemeInitializer from "@/components/theme/ThemeInitializer";
+import ProgressBarProvider from "@/components/layout/ProgressBarProvider";
 
 export default function RootLayout({
     children,
@@ -26,12 +27,13 @@ export default function RootLayout({
             </head>
             <body
                 className="
-          relative min-h-screen flex flex-col
-          bg-[var(--bg-gradient)] 
-          text-[var(--text)] 
-        "
+                    relative min-h-screen flex flex-col
+                    bg-[var(--bg-gradient)] 
+                    text-[var(--text)] 
+                "
             >
                 <ThemeInitializer />
+                <ProgressBarProvider />
 
                 <Navbar />
                 <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
