@@ -28,29 +28,42 @@ export default function BooksPage() {
         page
     );
 
+    const booksRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+        if (booksRef.current) {
+            booksRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+            });
+        }
+    }, [page]);
+
     return (
-        <div className="min-h-screen p-6">
+        <div className="min-h-screen p-6" ref={booksRef}>
             {!isLoading && (
                 <BookFilters
                     onFilterChange={(newFilters) => setFilters(newFilters)}
                 />
             )}
 
-            {isLoading && (
-                <div className="flex justify-center items-center h-full">
-                    <Loading />
-                </div>
-            )}
-
             {isError && <WoodenLibraryScene />}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-                {books.map((book: any) => (
-                    <BookCard key={book.key} book={book} />
-                ))}
+            <div className="mt-12 min-h-[300px] flex justify-center items-center">
+                {isLoading ? (
+                    <Loading />
+                ) : books.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
+                        {books.map((book: any) => (
+                            <BookCard key={book.key} book={book} />
+                        ))}
+                    </div>
+                ) : (
+                    <WoodenLibraryScene />
+                )}
             </div>
 
-            {books.length !== 0 && (
+            {books.length !== 0 && !isLoading && (
                 <Pagination
                     page={page}
                     setPage={setPage}
@@ -58,8 +71,6 @@ export default function BooksPage() {
                     totalPages={Math.ceil(total / ITEMS_PER_PAGE)}
                 />
             )}
-
-            {!isLoading && books.length === 0 && <WoodenLibraryScene />}
         </div>
     );
 }
