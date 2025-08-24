@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ThemeSwitcher from "../theme/ThemeSwitcher";
 import { motion } from "framer-motion";
 import MobileMenu from "../MobileMenu";
@@ -16,9 +16,12 @@ export default function Navbar() {
     const [mounted, setMounted] = useState(false);
     const [bookOrder, setBookOrder] = useState<Array<number>>([0, 1, 2]);
 
+    const burgerRef = useRef<HTMLDivElement>(null);
+
     const { isDark } = useThemeStore();
 
     useEffect(() => setMounted(true), []);
+
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
             if (e.key === "Escape") setOpen(false);
@@ -35,9 +38,9 @@ export default function Navbar() {
         { color: "var(--accent)", label: "Book 3" },
     ];
 
-    const toggleBooks = () => {
-        setBookOrder([bookOrder[1], bookOrder[0], bookOrder[2]]);
-        setOpen(!open);
+    const handleBurgerClick = () => {
+        setOpen((prev) => !prev);
+        setBookOrder((prev) => [prev[1], prev[0], prev[2]]);
     };
 
     return (
@@ -81,8 +84,9 @@ export default function Navbar() {
                     <div className="md:hidden flex items-center gap-3">
                         <ThemeSwitcher />
                         <div
+                            ref={burgerRef}
                             className="relative w-12 h-10 cursor-pointer"
-                            onClick={toggleBooks}
+                            onClick={handleBurgerClick}
                         >
                             {bookOrder.map((i, idx) => (
                                 <motion.div
@@ -115,7 +119,12 @@ export default function Navbar() {
             </div>
 
             {/* منوی موبایل */}
-            <MobileMenu open={open} setOpen={setOpen} navLinks={navLinks} />
+            <MobileMenu
+                open={open}
+                setOpen={setOpen}
+                navLinks={navLinks}
+                burgerRef={burgerRef}
+            />
         </nav>
     );
 }

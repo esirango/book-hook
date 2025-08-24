@@ -5,16 +5,44 @@ import React from "react";
 
 type NavLink = { href: string; label: string };
 
+import { useEffect, useRef } from "react";
+
 function MobileMenu({
     open,
     setOpen,
     navLinks,
+    burgerRef,
 }: {
     open: boolean;
     setOpen: any;
     navLinks: NavLink[];
+    burgerRef: React.RefObject<HTMLDivElement | null>;
 }) {
     const { isDark } = useThemeStore();
+    const menuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (
+                menuRef.current &&
+                burgerRef.current &&
+                !menuRef.current.contains(event.target as Node) &&
+                !burgerRef.current.contains(event.target as Node)
+            ) {
+                setOpen(false);
+            }
+        }
+
+        if (open) {
+            document.addEventListener("mousedown", handleClickOutside);
+        } else {
+            document.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [open, setOpen]);
 
     return (
         <AnimatePresence>
@@ -23,16 +51,16 @@ function MobileMenu({
                     {/* Backdrop */}
                     <motion.div
                         key="backdrop"
-                        className="fixed inset-0 backdrop-blur-sm bg-black/50 md:hidden"
+                        className="fixed inset-0 backdrop-blur-sm bg-black/50 md:hidden z-30"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={() => setOpen(false)}
                     />
 
                     {/* Dropdown Menu */}
                     <motion.div
                         key="dropdown"
+                        ref={menuRef}
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
@@ -41,11 +69,7 @@ function MobileMenu({
                             stiffness: 260,
                             damping: 25,
                         }}
-                        className="
-    absolute top-full left-0 w-full md:hidden overflow-hidden
-    backdrop-blur-sm
-    shadow-2xl rounded-b-2xl z-40
-  "
+                        className="absolute top-full left-0 w-full md:hidden overflow-hidden backdrop-blur-sm shadow-2xl rounded-b-2xl z-40"
                         style={{
                             backgroundColor: isDark
                                 ? "var(--menu-bg)"
@@ -59,11 +83,7 @@ function MobileMenu({
                                         <Link
                                             href={l.href}
                                             onClick={() => setOpen(false)}
-                                            className="
-              block px-4 py-2 rounded-lg
-              hover:bg-white/30 dark:hover:bg-gray-800/30
-              transition-colors font-medium
-            "
+                                            className="block px-4 py-2 rounded-lg hover:bg-white/30 dark:hover:bg-gray-800/30 transition-colors font-medium"
                                             style={{
                                                 color: isDark
                                                     ? "var(--text)"
