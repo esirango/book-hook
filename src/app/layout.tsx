@@ -36,7 +36,7 @@ export default function RootLayout({
                 <ProgressBarProvider />
 
                 <Navbar />
-                <main className="container mx-auto px-4 py-8 flex-1 relative z-10">
+                <main className="w-full h-full flex-1 relative z-10">
                     {children}
                 </main>
                 <Footer />
