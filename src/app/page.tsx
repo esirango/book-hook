@@ -2,9 +2,60 @@
 
 import Link from "next/link";
 import { motion, useSpring, useMotionValue, useTransform } from "framer-motion";
-import { useEffect, useMemo } from "react";
+import { useEffect, useState } from "react";
+
+type IconData = { icon: string; top: string; left: string };
+
+function FloatingIcon({
+    item,
+    index,
+    mouseX,
+    mouseY,
+}: {
+    item: IconData;
+    index: number;
+    mouseX: any;
+    mouseY: any;
+}) {
+    const x = useTransform(
+        mouseX,
+        (val) => (val as number) * (30 + index * 5) * (index % 2 === 0 ? 1 : -1)
+    );
+    const y = useTransform(
+        mouseY,
+        (val) => (val as number) * (30 + index * 5) * (index % 2 === 0 ? -1 : 1)
+    );
+
+    return (
+        <motion.div
+            className="absolute text-5xl opacity-60 blur-[2px] select-none"
+            style={{
+                top: item.top,
+                left: item.left,
+                x,
+                y,
+            }}
+            animate={{
+                scale: [1, 1.05, 0.95, 1],
+            }}
+            transition={{
+                duration: 12 + index * 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+            }}
+            whileHover={{
+                scale: 1.2,
+                opacity: 0.6,
+            }}
+        >
+            {item.icon}
+        </motion.div>
+    );
+}
 
 export default function HomePage() {
+    const [icons, setIcons] = useState<IconData[]>([]);
+
     const rawX = useMotionValue(0);
     const rawY = useMotionValue(0);
 
@@ -12,6 +63,18 @@ export default function HomePage() {
     const mouseY = useSpring(rawY, { stiffness: 20, damping: 150 });
 
     const iconList = ["📗", "📜", "🪶", "🕯️", "📖", "📕", "📘", "📒", "📓"];
+
+    useEffect(() => {
+        setIcons(
+            Array(40)
+                .fill(null)
+                .map(() => ({
+                    icon: iconList[Math.floor(Math.random() * iconList.length)],
+                    top: `${Math.random() * 100}%`,
+                    left: `${Math.random() * 100}%`,
+                }))
+        );
+    }, []);
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -22,62 +85,23 @@ export default function HomePage() {
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, [rawX, rawY]);
 
-    const icons = useMemo(() => {
-        return Array(40)
-            .fill(null)
-            .map(() => ({
-                icon: iconList[Math.floor(Math.random() * iconList.length)],
-                top: `${Math.random() * 120 - 10}%`, // -10% تا 110%
-                left: `${Math.random() * 120 - 10}%`,
-            }));
-    }, []);
-
     return (
-        <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden text-center px-4">
+        <div className="relative flex flex-col items-center justify-center h-[calc(100vh-148px)] overflow-hidden text-center px-4">
             {/* floating icons background */}
             <div className="absolute inset-0 -z-10 overflow-hidden">
-                {icons.map((item, i) => {
-                    const x = useTransform(
-                        mouseX,
-                        (val) => val * (30 + i * 5) * (i % 2 === 0 ? 1 : -1)
-                    );
-                    const y = useTransform(
-                        mouseY,
-                        (val) => val * (30 + i * 5) * (i % 2 === 0 ? -1 : 1)
-                    );
-
-                    return (
-                        <motion.div
-                            key={i}
-                            className="absolute text-5xl opacity-60 blur-[2px] select-none"
-                            style={{
-                                top: `${Math.random() * 100}%`,
-                                left: `${Math.random() * 100}%`,
-                                x,
-                                y,
-                            }}
-                            animate={{
-                                scale: [1, 1.05, 0.95, 1],
-                            }}
-                            transition={{
-                                duration: 12 + i * 3,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                            }}
-                            whileHover={{
-                                scale: 1.2,
-                                opacity: 0.6,
-                            }}
-                        >
-                            {item.icon}
-                        </motion.div>
-                    );
-                })}
+                {icons.map((item, i) => (
+                    <FloatingIcon
+                        key={i}
+                        item={item}
+                        index={i}
+                        mouseX={mouseX}
+                        mouseY={mouseY}
+                    />
+                ))}
             </div>
 
             {/* content */}
             <div className="relative flex justify-center items-center min-h-screen w-full bg-[var(--bg)]">
-                {/* دایره با حلقه نورانی ملایم */}
                 <div
                     className="relative flex flex-col justify-center items-center rounded-full p-8"
                     style={{
@@ -85,7 +109,6 @@ export default function HomePage() {
                         height: "min(80vw, 400px)",
                     }}
                 >
-                    {/* متن‌ها */}
                     <h1 className="text-4xl sm:text-5xl font-extrabold text-[var(--accent)] text-center">
                         Book Library
                     </h1>
@@ -93,7 +116,6 @@ export default function HomePage() {
                         Discover and explore books from all around the world...
                     </p>
 
-                    {/* دکمه */}
                     <Link
                         href="/books"
                         className="relative mt-6 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-200"
