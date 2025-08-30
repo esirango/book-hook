@@ -2,16 +2,7 @@
 
 import Link from "next/link";
 import { motion, useSpring, useMotionValue, useTransform } from "framer-motion";
-import { useEffect } from "react";
-
-const icons = Array(40)
-    .fill(null)
-    .map(
-        () =>
-            ["📗", "📜", "🪶", "🕯️", "📖", "📕", "📘", "📒", "📓"][
-                Math.floor(Math.random() * 9)
-            ]
-    );
+import { useEffect, useMemo } from "react";
 
 export default function HomePage() {
     const rawX = useMotionValue(0);
@@ -19,6 +10,8 @@ export default function HomePage() {
 
     const mouseX = useSpring(rawX, { stiffness: 20, damping: 150 });
     const mouseY = useSpring(rawY, { stiffness: 20, damping: 150 });
+
+    const iconList = ["📗", "📜", "🪶", "🕯️", "📖", "📕", "📘", "📒", "📓"];
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
@@ -29,11 +22,21 @@ export default function HomePage() {
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, [rawX, rawY]);
 
+    const icons = useMemo(() => {
+        return Array(40)
+            .fill(null)
+            .map(() => ({
+                icon: iconList[Math.floor(Math.random() * iconList.length)],
+                top: `${Math.random() * 120 - 10}%`, // -10% تا 110%
+                left: `${Math.random() * 120 - 10}%`,
+            }));
+    }, []);
+
     return (
         <div className="relative flex flex-col items-center justify-center min-h-screen overflow-hidden text-center px-4">
             {/* floating icons background */}
             <div className="absolute inset-0 -z-10 overflow-hidden">
-                {icons.map((icon, i) => {
+                {icons.map((item, i) => {
                     const x = useTransform(
                         mouseX,
                         (val) => val * (30 + i * 5) * (i % 2 === 0 ? 1 : -1)
@@ -66,7 +69,7 @@ export default function HomePage() {
                                 opacity: 0.6,
                             }}
                         >
-                            {icon}
+                            {item.icon}
                         </motion.div>
                     );
                 })}
