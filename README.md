@@ -1,16 +1,18 @@
 # 🎣 Book Hook PWA 📚
 
+_(Built with Next.js 15 – App Router)_
+
 Welcome to **Book Hook** – the app that **hooks you into books**! 🌟  
 Explore, search, and read summaries of your favorite books, with themed pages and interactive experiences that make reading fun again!
 
-Built with **Next.js, TypeScript, Tailwind CSS**, and modern libraries for a fast & engaging PWA experience.
+Built with **Next.js (App Router)**, **TypeScript**, **Tailwind CSS v4**, and modern libraries for a fast & engaging PWA experience.
 
 ---
 
 ## ✨ Features
 
 -   🔍 **Advanced Book Search**  
-    Find books by multiple fields:
+    Search by:
 
     -   `author` 👩‍💻
     -   `title` 📖
@@ -21,38 +23,34 @@ Built with **Next.js, TypeScript, Tailwind CSS**, and modern libraries for a fas
     -   `publishYear` 🗓️
     -   `language` 🈳
 
--   📖 **Read Book Summaries**  
-    Get the gist of a book in seconds, no scrolling forever.
-
--   🌈 **Themed Pages**  
-    Dive into categories like Romance 💖, Science 🔬, History 🏺, and more!
-
--   🎨 **Interactive Landing Page**  
-    Engaging animations that grab your attention and make browsing fun.
-
--   💡 **Dark Mode & Light Mode**  
-    Designed like a desk lamp — set the perfect reading mood.
-
--   ⚡ **Progressive Web App (PWA)**  
-    Installable, offline-ready, and fast like a native app!
+-   📖 **Read Book Summaries** – get the gist of a book in seconds.
+-   🌈 **Themed Pages** – explore Romance 💖, Science 🔬, History 🏺, and more.
+-   🎨 **Interactive Landing Page** – smooth animations with Framer Motion.
+-   💡 **Dark/Light Mode** – reading with the perfect mood.
+-   ⚡ **Progressive Web App (PWA)** – offline-ready, installable & fast.
 
 ---
 
-## 🛠 Technologies & Libraries
+## 🛠 Tech Stack
 
--   **Next.js** – SSR & SSG with React
--   **TypeScript** – Type-safe development
--   **Tailwind CSS** – Fast & responsive styling
--   **SWR** – Smart data fetching & caching
--   **js-cookie** – Easy cookie management
--   **Lucide React** – Lightweight, customizable icons
--   **PWA Support** – Offline & installable experience
+-   **Next.js 15 (App Router)** – SSR, SSG & Client Components
+-   **React 19** – latest React features
+-   **TypeScript 5** – type-safe development
+-   **Tailwind CSS v4** – utility-first responsive styling
+-   **Framer Motion 12** – animations & transitions
+-   **SWR 2** – data fetching & caching
+-   **Zustand 5** – lightweight state management
+-   **Headless UI** – accessible UI primitives
+-   **Lucide React** – lightweight, customizable icons
+-   **Axios** – HTTP requests
+-   **js-cookie** – cookie management
+-   **nextjs-toploader** – page loading indicator
 
 ---
 
-## 🚀 Installation & Setup
+## 🚀 Getting Started
 
-1. Clone the repo:
+Clone the repository:
 
 ```bash
 git clone https://github.com/username/book-hook.git
