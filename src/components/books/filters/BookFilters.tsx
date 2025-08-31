@@ -137,7 +137,7 @@ export default function BookFilters({ onFilterChange }: BookFiltersProps) {
                     <button
                         type="button"
                         onClick={() => setOpenDropdown(!openDropdown)}
-                        className="flex w-full justify-center items-center gap-2 px-3 py-2 rounded-xl font-medium bg-[var(--bg)] border border-[var(--accent)] text-[var(--link)] hover:brightness-105 transition whitespace-nowrap"
+                        className="flex w-full justify-center items-center gap-2 px-3 py-2 rounded-xl font-medium bg-[var(--accent)] border border-[var(--accent)] text-[var(--text)] hover:brightness-105 transition whitespace-nowrap"
                     >
                         More Filters
                         <ChevronDown

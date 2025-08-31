@@ -114,8 +114,8 @@ img[alt="placeholder"] {
 
 /* دکمه‌ها */
 button {
-    background-color: var(--accent);
-    color: var(--text);
+    /* background-color: var(--accent);
+    color: var(--text); */
     transition: background-color 0.3s, color 0.3s;
 }
 

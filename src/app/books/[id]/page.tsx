@@ -3,65 +3,18 @@
 import React, { use } from "react";
 import { useBookDetails } from "@/hooks/useBookDetails";
 import BookDetailSkeleton from "@/components/books/shimmer/BookDetailSkeleton";
-import { useRouter, useSearchParams } from "next/navigation";
 import { GENRES } from "@/store/genres";
-
-interface TagListProps {
-    title: string;
-    items: string[];
-    paramKey: string;
-}
-
-function TagList({ title, items, paramKey }: TagListProps) {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-
-    if (!items.length) return null;
-
-    const limit = 4;
-    const shown = items.slice(0, limit);
-    const hiddenCount = items.length - shown.length;
-
-    function handleTagClick(tag: string) {
-        const query = new URLSearchParams(searchParams.toString());
-        query.set(paramKey, tag);
-
-        // مسیر /books اضافه شد
-        router.push(`/books?${query.toString()}`);
-    }
-
-    return (
-        <div className="mb-3">
-            <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">
-                {title}:
-            </h3>
-            <div className="flex flex-wrap gap-2">
-                {shown.map((item, i) => (
-                    <button
-                        key={i}
-                        onClick={() => handleTagClick(item)}
-                        className="px-3 py-1 rounded-xl text-sm shadow-sm cursor-pointer
-                                   bg-[var(--input-bg)] text-[var(--input-text)]
-                                   hover:brightness-110 transition-all"
-                    >
-                        {item}
-                    </button>
-                ))}
-                {hiddenCount > 0 && (
-                    <span className="px-3 py-1 rounded-xl text-sm shadow-sm bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-                        +{hiddenCount} more
-                    </span>
-                )}
-            </div>
-        </div>
-    );
-}
+import TagList from "@/components/books/TagList";
+import { useRouter, useSearchParams } from "next/navigation";
+import setQueryParam from "../../../../utils/setQueryParam";
 
 export default function BookDetailPage({
     params,
 }: {
     params: Promise<{ id: string }>;
 }) {
+    const router = useRouter();
+    const searchParams = useSearchParams();
     const { id } = use(params);
     const { book, authors, isLoading, isError } = useBookDetails(id);
 
@@ -112,10 +65,20 @@ export default function BookDetailPage({
                         <h1 className="text-3xl font-bold mb-3 text-[var(--accent)]">
                             {book.title || "Untitled"}
                         </h1>
-                        <p className="mb-4">
+                        <button
+                            className="mb-4"
+                            onClick={() =>
+                                setQueryParam(
+                                    router,
+                                    "author",
+                                    searchParams,
+                                    authors || []
+                                )
+                            }
+                        >
                             <span className="font-semibold">Author:</span>{" "}
                             {authors?.join(", ") || "Unknown"}
-                        </p>
+                        </button>
 
                         <TagList
                             title="Genres"
