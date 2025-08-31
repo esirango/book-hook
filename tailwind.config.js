@@ -7,8 +7,6 @@ module.exports = {
         "./hooks/**/*.{js,ts,jsx,tsx}",
         "./store/**/*.{js,ts,jsx,tsx}",
     ],
-    theme: {
-        extend: {},
-    },
+
     plugins: [],
 };

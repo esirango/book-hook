@@ -28,7 +28,7 @@ function FloatingIcon({
 
     return (
         <motion.div
-            className="absolute text-5xl opacity-60 blur-[2px] select-none"
+            className="absolute text-5xl opacity-60 blur-[3px] select-none"
             style={{
                 top: item.top,
                 left: item.left,
@@ -77,9 +77,13 @@ export default function HomePage() {
     }, []);
 
     useEffect(() => {
+        let raf: number;
         const handleMouseMove = (e: MouseEvent) => {
-            rawX.set(e.clientX / window.innerWidth - 0.5);
-            rawY.set(e.clientY / window.innerHeight - 0.5);
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+                rawX.set(e.clientX / window.innerWidth - 0.5);
+                rawY.set(e.clientY / window.innerHeight - 0.5);
+            });
         };
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
@@ -109,10 +113,18 @@ export default function HomePage() {
                         height: "min(80vw, 400px)",
                     }}
                 >
-                    <h1 className="text-4xl sm:text-5xl font-extrabold text-[var(--accent)] text-center">
+                    <h1
+                        className="text-4xl sm:text-5xl font-extrabold text-[var(--accent)] text-center"
+                        style={{
+                            textShadow: " -2px -2px 1px rgba(0,0,0,0.6)",
+                        }}
+                    >
                         Book Library
                     </h1>
-                    <p className="text-lg sm:text-xl text-[var(--text)] max-w-xs text-center mt-4">
+                    <p
+                        className="text-lg sm:text-xl text-[var(--text)] max-w-xs text-center mt-4"
+                        style={{ textShadow: "2px 2px 4px rgba(0,0,0,0.6)" }}
+                    >
                         Discover and explore books from all around the world...
                     </p>
 
@@ -120,7 +132,7 @@ export default function HomePage() {
                         href="/books"
                         className="relative mt-6 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-200"
                     >
-                        <span className="absolute inset-0 bg-black/25 rounded-xl"></span>
+                        <span className="absolute inset-0 bg-[var(--secondary-button)] rounded-xl"></span>
                         <span className="relative text-white">
                             Explore Books
                         </span>
