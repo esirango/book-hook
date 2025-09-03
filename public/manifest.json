@@ -4,7 +4,7 @@
     "short_name": "BookHook",
     "description": "Explore Books & search between them",
     "start_url": "/",
-    "display": "standalone",
+    "display": "fullscreen",
     "orientation": "portrait",
     "background_color": "#8da3b1",
     "theme_color": "#9d7f5b",
