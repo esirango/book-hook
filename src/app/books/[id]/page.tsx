@@ -38,7 +38,6 @@ export default function BookDetailPage({
             : book.description?.value || "No summary available.";
 
     const subjects = Array.isArray(book.subjects) ? book.subjects : [];
-    // فقط ژانرهایی که در لیست ثابت هستند
     const genres = subjects.filter((s: string) => GENRES.includes(s));
     const themes = subjects.filter((s: string) =>
         /(love|revenge|adultery|dream|customs|conditions)/i.test(s)
@@ -53,7 +52,7 @@ export default function BookDetailPage({
         "Unknown";
 
     return (
-        <div className="max-w-3xl mx-auto p-6 bg-[var(--card-bg)] dark:bg-[var(--card-bg)] rounded-2xl shadow-lg">
+        <div className="max-w-sm md:max-w-2xl sm:max-w-xl mx-auto my-10 p-6 bg-[var(--card-bg)] dark:bg-[var(--card-bg)] rounded-2xl shadow-lg">
             <div className="flex flex-col md:flex-row gap-6">
                 <img
                     src={coverUrl}
