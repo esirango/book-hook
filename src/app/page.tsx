@@ -11,41 +11,38 @@ function FloatingIcon({
     index,
     mouseX,
     mouseY,
+    isMobile,
 }: {
     item: IconData;
     index: number;
     mouseX: any;
     mouseY: any;
+    isMobile: boolean;
 }) {
     const x = useTransform(
         mouseX,
-        (val) => (val as number) * (30 + index * 5) * (index % 2 === 0 ? 1 : -1)
+        (val) => (val as number) * (20 + index * 5) * (index % 2 === 0 ? 1 : -1)
     );
     const y = useTransform(
         mouseY,
-        (val) => (val as number) * (30 + index * 5) * (index % 2 === 0 ? -1 : 1)
+        (val) => (val as number) * (20 + index * 5) * (index % 2 === 0 ? -1 : 1)
     );
 
     return (
         <motion.div
-            className="absolute text-5xl opacity-60 blur-[3px] select-none"
+            className="absolute text-4xl sm:text-5xl opacity-60 select-none blur-[1px]"
             style={{
                 top: item.top,
                 left: item.left,
-                x,
-                y,
+                ...(isMobile ? {} : { x, y }),
             }}
             animate={{
                 scale: [1, 1.05, 0.95, 1],
             }}
             transition={{
-                duration: 12 + index * 3,
+                duration: 10 + index * 2,
                 repeat: Infinity,
                 ease: "easeInOut",
-            }}
-            whileHover={{
-                scale: 1.2,
-                opacity: 0.6,
             }}
         >
             {item.icon}
@@ -55,18 +52,24 @@ function FloatingIcon({
 
 export default function HomePage() {
     const [icons, setIcons] = useState<IconData[]>([]);
+    const [isMobile, setIsMobile] = useState(false);
 
     const rawX = useMotionValue(0);
     const rawY = useMotionValue(0);
 
-    const mouseX = useSpring(rawX, { stiffness: 20, damping: 150 });
-    const mouseY = useSpring(rawY, { stiffness: 20, damping: 150 });
+    // جایگزین این بخش کن
+    const mouseX = useSpring(rawX, { stiffness: 20, damping: 80, mass: 1 });
+    const mouseY = useSpring(rawY, { stiffness: 20, damping: 80, mass: 1 });
 
     const iconList = ["📗", "📜", "🪶", "🕯️", "📖", "📕", "📘", "📒", "📓"];
 
     useEffect(() => {
+        const mobile = window.innerWidth < 768;
+        setIsMobile(mobile);
+
+        const count = mobile ? 30 : 40;
         setIcons(
-            Array(40)
+            Array(count)
                 .fill(null)
                 .map(() => ({
                     icon: iconList[Math.floor(Math.random() * iconList.length)],
@@ -77,6 +80,7 @@ export default function HomePage() {
     }, []);
 
     useEffect(() => {
+        if (isMobile) return;
         let raf: number;
         const handleMouseMove = (e: MouseEvent) => {
             cancelAnimationFrame(raf);
@@ -87,7 +91,7 @@ export default function HomePage() {
         };
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, [rawX, rawY]);
+    }, [rawX, rawY, isMobile]);
 
     return (
         <div className="relative flex flex-col items-center justify-center h-[calc(100vh-148px)] overflow-hidden text-center px-4">
@@ -100,6 +104,7 @@ export default function HomePage() {
                         index={i}
                         mouseX={mouseX}
                         mouseY={mouseY}
+                        isMobile={isMobile}
                     />
                 ))}
             </div>
