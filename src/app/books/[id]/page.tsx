@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { useBookDetails } from "@/hooks/useBookDetails";
 import BookDetailSkeleton from "@/components/books/shimmer/BookDetailSkeleton";
 import { GENRES } from "@/store/genres";
@@ -18,6 +18,12 @@ export default function BookDetailPage({
     const { id } = use(params);
     const { book, authors, isLoading, isError } = useBookDetails(id);
 
+    const [coverUrl, setCoverUrl] = useState(
+        book.cover_id
+            ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
+            : ""
+    );
+
     if (isLoading) return <BookDetailSkeleton />;
 
     if (isError || !book)
@@ -26,11 +32,6 @@ export default function BookDetailPage({
                 Error or book not found.
             </div>
         );
-
-    const coverId = book.covers?.[0];
-    const coverUrl = coverId
-        ? `https://covers.openlibrary.org/b/id/${coverId}-L.jpg`
-        : "/placeholder.png";
 
     const description =
         typeof book.description === "string"
@@ -54,11 +55,19 @@ export default function BookDetailPage({
     return (
         <div className="max-w-sm md:max-w-2xl sm:max-w-xl mx-auto my-10 p-6 bg-[var(--card-bg)] dark:bg-[var(--card-bg)] rounded-2xl shadow-lg">
             <div className="flex flex-col md:flex-row gap-6">
-                <img
-                    src={coverUrl}
-                    alt={book.title || "Book Cover"}
-                    className="w-full md:w-60 max-h-96 object-cover rounded-xl shadow-md border border-gray-200 dark:border-gray-700"
-                />
+                {coverUrl ? (
+                    <img
+                        src={coverUrl}
+                        alt={book.title || "Book cover"}
+                        className="w-full h-full object-cover"
+                        onError={() => setCoverUrl("")}
+                    />
+                ) : (
+                    <div className="flex flex-col h-[200px] w-[200px] items-center justify-center text-gray-400 dark:text-gray-300">
+                        <span className="text-6xl select-none">📖</span>
+                    </div>
+                )}
+
                 <div className="flex-1 flex flex-col justify-between">
                     <div>
                         <h1 className="text-3xl font-bold mb-3 text-[var(--accent)]">
