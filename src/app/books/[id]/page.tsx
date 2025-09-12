@@ -7,6 +7,7 @@ import { GENRES } from "@/store/genres";
 import TagList from "@/components/books/TagList";
 import { useRouter, useSearchParams } from "next/navigation";
 import setQueryParam from "../../../../utils/setQueryParam";
+import { formatDate } from "../../../../utils/formatDate";
 
 export default function BookDetailPage({
     params,
@@ -19,7 +20,6 @@ export default function BookDetailPage({
     const { book, authors, isLoading, isError } = useBookDetails(id);
 
     const [coverUrl, setCoverUrl] = useState("");
-    console.log(book);
     useEffect(() => {
         if (book?.covers) {
             setCoverUrl(
@@ -30,14 +30,17 @@ export default function BookDetailPage({
         }
     }, [book]);
 
+    useEffect(() => {
+        if (!isLoading) {
+            if (isError || !book) {
+                router.replace("/books");
+            }
+        }
+    }, [isError, book, router, isLoading]);
+
     if (isLoading) return <BookDetailSkeleton />;
 
-    if (isError || !book)
-        return (
-            <div className="text-red-600 font-semibold text-center mt-16">
-                Error or book not found.
-            </div>
-        );
+    if (isError || !book) return null;
 
     const description =
         typeof book.description === "string"
@@ -116,11 +119,13 @@ export default function BookDetailPage({
                         />
                         <TagList title="Times" items={times} paramKey="time" />
 
-                        <p className="mb-4 text-gray-700 dark:text-gray-300">
-                            <span className="font-semibold">
+                        <p className="mb-4   flex items-center gap-2">
+                            <span className="font-semibold]">
                                 First Published:
-                            </span>{" "}
-                            {published}
+                            </span>
+                            <span className="px-3 py-1 rounded-full bg-[var(--secondary-button)]/20 text-[var(--accent)] text-sm font-medium shadow-sm">
+                                {formatDate(published)}
+                            </span>
                         </p>
 
                         <div className="text-gray-800 dark:text-gray-200 leading-relaxed">
