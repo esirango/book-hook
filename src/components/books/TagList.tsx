@@ -29,24 +29,26 @@ function TagList({ title, items, paramKey, onChangeTag }: TagListProps) {
     };
 
     return (
-        <div className="mb-3">
+        <div className="mb-3 w-full">
             <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-1">
                 {title}:
             </h3>
 
             <div className="flex flex-wrap gap-2">
+                {/* نمایش تگ‌های اولیه */}
                 {items.slice(0, limit).map((item, i) => (
                     <button
                         key={i}
                         onClick={() => handleClick(item)}
                         className="px-3 py-1 rounded-xl text-sm shadow-sm cursor-pointer
-                       bg-[var(--accent)] text-[var(--text)]
-                       hover:brightness-110 transition-all"
+                                   bg-[var(--accent)] text-[var(--text)]
+                                   hover:brightness-110 transition-all break-words max-w-[150px] truncate"
                     >
                         {item}
                     </button>
                 ))}
 
+                {/* تگ‌های مخفی */}
                 <AnimatePresence>
                     {expanded && (
                         <motion.div
@@ -61,8 +63,8 @@ function TagList({ title, items, paramKey, onChangeTag }: TagListProps) {
                                     key={item}
                                     onClick={() => handleClick(item)}
                                     className="px-3 py-1 rounded-xl text-sm shadow-sm cursor-pointer
-                             bg-[var(--accent)] text-[var(--text)]
-                             hover:brightness-110 transition-all"
+                                               bg-[var(--accent)] text-[var(--text)]
+                                               hover:brightness-110 transition-all break-words max-w-[150px] truncate"
                                 >
                                     {item}
                                 </button>
@@ -71,12 +73,13 @@ function TagList({ title, items, paramKey, onChangeTag }: TagListProps) {
                     )}
                 </AnimatePresence>
 
+                {/* دکمه Show more / Show less */}
                 {hiddenCount > 0 && (
                     <button
                         onClick={() => setExpanded(!expanded)}
                         className="flex items-center gap-1 px-3 py-1 rounded-xl text-sm shadow-sm cursor-pointer
-                       bg-[var(--secondary-button)] text-[var(--input-text)]
-                       hover:brightness-110 transition-all"
+                                   bg-[var(--secondary-button)] text-[var(--input-text)]
+                                   hover:brightness-110 transition-all flex-shrink-0"
                     >
                         {expanded ? "Show less" : `+${hiddenCount} more`}
                         <motion.span

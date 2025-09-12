@@ -62,26 +62,34 @@ export default function BookDetailPage({
         "Unknown";
 
     return (
-        <div className="max-w-sm md:max-w-2xl sm:max-w-xl mx-auto my-10 p-6 bg-[var(--card-bg)] dark:bg-[var(--card-bg)] rounded-2xl shadow-lg">
+        <div className="mx-auto my-10 p-6 bg-[var(--card-bg)] rounded-2xl shadow-lg w-full max-w-6xl">
             <div className="flex flex-col md:flex-row gap-6">
                 {coverUrl ? (
                     <img
                         src={coverUrl}
                         alt={book.title || "Book cover"}
-                        className="w-full h-full object-cover"
+                        className="
+            w-full          
+            md:max-w-[400px] 
+            h-auto
+            md:max-h-[500px]
+            object-contain
+            rounded-xl
+        "
                         onError={() => setCoverUrl("")}
                     />
                 ) : (
-                    <div className="flex flex-col h-[200px] min-w-[200px] items-center justify-center text-gray-400 dark:text-gray-300">
+                    <div className="flex flex-col h-[200px] w-full md:min-w-[200px] items-center justify-center text-gray-400 dark:text-gray-300">
                         <span className="text-6xl select-none">📖</span>
                     </div>
                 )}
 
-                <div className="flex-1 flex flex-col justify-between">
+                <div className="flex-1 flex flex-col min-w-0">
                     <div>
                         <h1 className="text-3xl font-bold mb-3 text-[var(--accent)]">
                             {book.title || "Untitled"}
                         </h1>
+
                         <button
                             className="mb-4"
                             onClick={() =>
@@ -119,8 +127,8 @@ export default function BookDetailPage({
                         />
                         <TagList title="Times" items={times} paramKey="time" />
 
-                        <p className="mb-4   flex items-center gap-2">
-                            <span className="font-semibold]">
+                        <p className="mb-4 flex items-center gap-2">
+                            <span className="font-semibold">
                                 First Published:
                             </span>
                             <span className="px-3 py-1 rounded-full bg-[var(--secondary-button)]/20 text-[var(--accent)] text-sm font-medium shadow-sm">
@@ -128,9 +136,11 @@ export default function BookDetailPage({
                             </span>
                         </p>
 
-                        <div className="text-gray-800 dark:text-gray-200 leading-relaxed">
+                        <div className="text-gray-800 dark:text-gray-200 text-justify leading-relaxed min-w-0 sm:w-full md:w-full lg:w-1/2">
                             <h3 className="font-semibold mb-1">Summary:</h3>
-                            <p>{description}</p>
+                            <p className="overflow-hidden line-clamp-6">
+                                {description}
+                            </p>
                         </div>
                     </div>
                 </div>
