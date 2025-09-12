@@ -63,7 +63,7 @@ export default function BookDetailPage({
                         onError={() => setCoverUrl("")}
                     />
                 ) : (
-                    <div className="flex flex-col h-[200px] w-[200px] items-center justify-center text-gray-400 dark:text-gray-300">
+                    <div className="flex flex-col h-[200px] min-w-[200px] items-center justify-center text-gray-400 dark:text-gray-300">
                         <span className="text-6xl select-none">📖</span>
                     </div>
                 )}
