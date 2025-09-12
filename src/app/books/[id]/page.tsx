@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useBookDetails } from "@/hooks/useBookDetails";
 import BookDetailSkeleton from "@/components/books/shimmer/BookDetailSkeleton";
 import { GENRES } from "@/store/genres";
@@ -18,11 +18,17 @@ export default function BookDetailPage({
     const { id } = use(params);
     const { book, authors, isLoading, isError } = useBookDetails(id);
 
-    const [coverUrl, setCoverUrl] = useState(
-        book.cover_id
-            ? `https://covers.openlibrary.org/b/id/${book.cover_id}-L.jpg`
-            : ""
-    );
+    const [coverUrl, setCoverUrl] = useState("");
+    console.log(book);
+    useEffect(() => {
+        if (book?.covers) {
+            setCoverUrl(
+                `https://covers.openlibrary.org/b/id/${book.covers[0]}-L.jpg`
+            );
+        } else {
+            setCoverUrl("");
+        }
+    }, [book]);
 
     if (isLoading) return <BookDetailSkeleton />;
 
