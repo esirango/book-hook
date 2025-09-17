@@ -10,11 +10,16 @@ import BookFilters from "@/components/books/filters/BookFilters";
 import WoodenLibraryScene from "@/components/Library";
 
 export default function BooksPage() {
-    const [filters, setFilters] = useState<Record<string, string>>({});
     const [page, setPage] = useState(1);
     const prevQueryRef = useRef<string>("");
 
+    const [filters, setFilters] = useState<Record<string, string>>({});
     const query = buildOpenLibraryQuery(filters);
+
+    const { books, isLoading, isError, hasNextPage, total } = useBooks(
+        query,
+        page
+    );
 
     useEffect(() => {
         if (prevQueryRef.current !== query) {
@@ -22,11 +27,6 @@ export default function BooksPage() {
             prevQueryRef.current = query;
         }
     }, [query]);
-
-    const { books, isLoading, isError, hasNextPage, total } = useBooks(
-        query,
-        page
-    );
 
     const booksRef = useRef<HTMLDivElement | null>(null);
 

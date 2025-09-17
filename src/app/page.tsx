@@ -57,7 +57,6 @@ export default function HomePage() {
     const rawX = useMotionValue(0);
     const rawY = useMotionValue(0);
 
-    // جایگزین این بخش کن
     const mouseX = useSpring(rawX, { stiffness: 20, damping: 80, mass: 1 });
     const mouseY = useSpring(rawY, { stiffness: 20, damping: 80, mass: 1 });
 

@@ -21,7 +21,6 @@ interface BookFiltersProps {
 export default function BookFilters({ onFilterChange }: BookFiltersProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const initialized = useRef(false);
 
     const [openDropdown, setOpenDropdown] = useState(false);
 
@@ -37,18 +36,18 @@ export default function BookFilters({ onFilterChange }: BookFiltersProps) {
     });
 
     useEffect(() => {
-        if (initialized.current) return;
-        initialized.current = true;
-
-        const initialFilters = { ...filters };
-        (Object.keys(initialFilters) as (keyof typeof filters)[]).forEach(
-            (key) => {
-                initialFilters[key] = searchParams.get(key) || "";
-            }
-        );
-
-        setFilters(initialFilters);
-        onFilterChange(initialFilters);
+        const initial = {
+            author: searchParams.get("author") || "",
+            title: searchParams.get("title") || "",
+            genre: searchParams.get("genre") || "",
+            place: searchParams.get("place") || "",
+            person: searchParams.get("person") || "",
+            time: searchParams.get("time") || "",
+            publishYear: searchParams.get("publishYear") || "",
+            language: searchParams.get("language") || "",
+        };
+        setFilters(initial);
+        onFilterChange(initial);
     }, []);
 
     const handleChange = (key: keyof typeof filters, value: string) => {
@@ -57,11 +56,11 @@ export default function BookFilters({ onFilterChange }: BookFiltersProps) {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        const query = new URLSearchParams();
-        Object.entries(filters).forEach(
-            ([key, value]) => value && query.set(key, value)
-        );
-        router.push(`/books?${query.toString()}`);
+        const queryParams = new URLSearchParams();
+        Object.entries(filters).forEach(([key, value]) => {
+            if (value) queryParams.set(key, value);
+        });
+        router.push(`/books?${queryParams.toString()}`);
         onFilterChange(filters);
     };
 
@@ -120,9 +119,9 @@ export default function BookFilters({ onFilterChange }: BookFiltersProps) {
                                 field.charAt(0).toUpperCase() + field.slice(1)
                             }
                             value={filters[field]}
-                            onChange={(e) =>
-                                handleChange(field, e.target.value)
-                            }
+                            onChange={(e) => {
+                                handleChange(field, e.target.value);
+                            }}
                             className="
                 w-full px-3 py-2 rounded-xl 
                 border border-[var(--accent)] 
@@ -169,9 +168,10 @@ export default function BookFilters({ onFilterChange }: BookFiltersProps) {
                                             label: opt,
                                         }))}
                                         placeholder={placeholder}
-                                        onChange={(val) =>
-                                            handleChange(key, val)
-                                        }
+                                        onChange={(val) => {
+                                            console.log(key);
+                                            handleChange(key, val);
+                                        }}
                                     />
                                 )
                             )}

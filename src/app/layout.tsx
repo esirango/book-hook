@@ -21,6 +21,11 @@ export default function RootLayout({
                     type="image/png"
                 />
                 <link
+                    rel="shortcut icon"
+                    href="/images/icons/logo-dark.png"
+                    type="image/png"
+                />
+                <link
                     rel="apple-touch-icon"
                     href="/images/icons/icon-512.png"
                 />
