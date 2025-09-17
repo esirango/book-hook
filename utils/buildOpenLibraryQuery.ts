@@ -58,6 +58,10 @@ export function buildOpenLibraryQuery(filters: Record<string, string>) {
         if (centuryRange) parts.push(`first_publish_year:${centuryRange}`);
     }
 
+    if (filters.person) {
+        parts.push(`subject:"${filters.person}"`);
+    }
+
     if (filters.language) {
         const code = LANGUAGE_CODES[filters.language];
         if (code) parts.push(`language:${code}`);
