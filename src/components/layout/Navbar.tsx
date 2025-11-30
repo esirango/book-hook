@@ -1,26 +1,20 @@
 "use client";
+
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ThemeSwitcher from "../theme/ThemeSwitcher";
 import { motion } from "framer-motion";
 import MobileMenu from "../MobileMenu";
 import { useThemeStore } from "@/store/themeStore";
-
-const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/books", label: "Books" },
-];
+import { navBooks, navLinks } from "@/constants/globalConstants";
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
-    const [mounted, setMounted] = useState(false);
     const [bookOrder, setBookOrder] = useState<Array<number>>([0, 1, 2]);
 
     const burgerRef = useRef<HTMLDivElement>(null);
 
     const { isDark } = useThemeStore();
-
-    useEffect(() => setMounted(true), []);
 
     useEffect(() => {
         const onKey = (e: KeyboardEvent) => {
@@ -29,14 +23,6 @@ export default function Navbar() {
         if (open) document.addEventListener("keydown", onKey);
         return () => document.removeEventListener("keydown", onKey);
     }, [open]);
-
-    if (!mounted) return null;
-
-    const books = [
-        { color: "var(--placeholder)", label: "Book 1" },
-        { color: "var(--input-bg)", label: "Book 2" },
-        { color: "var(--accent)", label: "Book 3" },
-    ];
 
     const handleBurgerClick = () => {
         setOpen((prev) => !prev);
@@ -92,7 +78,9 @@ export default function Navbar() {
                                 <motion.div
                                     key={i}
                                     className="absolute w-12 h-4 rounded-2xl"
-                                    style={{ backgroundColor: books[i].color }}
+                                    style={{
+                                        backgroundColor: navBooks[i].color,
+                                    }}
                                     animate={{
                                         y: idx * 6,
                                         zIndex: 10 - idx,
