@@ -9,7 +9,6 @@ export default function setQueryParam(
     const query = new URLSearchParams(searchParams.toString());
 
     if (Array.isArray(value)) {
-        // چند مقدار رو با کاما جدا می‌کنیم
         query.set(paramKey, value.join(","));
     } else {
         query.set(paramKey, value);

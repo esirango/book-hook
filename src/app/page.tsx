@@ -111,7 +111,7 @@ export default function HomePage() {
             {/* content */}
             <div className="relative flex justify-center items-center min-h-screen w-full bg-[var(--bg)]">
                 <div
-                    className="relative flex flex-col justify-center items-center rounded-full p-8"
+                    className="relative flex flex-col justify-center items-center rounded-full p-8  transition-transform ease-in duration-300"
                     style={{
                         width: "min(80vw, 400px)",
                         height: "min(80vw, 400px)",
@@ -134,7 +134,7 @@ export default function HomePage() {
 
                     <Link
                         href="/books"
-                        className="relative mt-6 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-200"
+                        className="relative mt-6 px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-105"
                     >
                         <span className="absolute inset-0 bg-[var(--secondary-button)] rounded-xl"></span>
                         <span className="relative text-white">

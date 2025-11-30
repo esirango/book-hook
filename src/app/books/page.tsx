@@ -47,20 +47,16 @@ export default function BooksPage() {
                 />
             )}
 
-            {isError && <WoodenLibraryScene />}
+            {isError || (books.length <= 0 && <WoodenLibraryScene />)}
+
+            {isLoading && <Loading />}
 
             <div className="mt-12 min-h-[300px] flex justify-center items-center">
-                {isLoading ? (
-                    <Loading />
-                ) : books.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
-                        {books.map((book: any) => (
-                            <BookCard key={book.key} book={book} />
-                        ))}
-                    </div>
-                ) : (
-                    <WoodenLibraryScene />
-                )}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
+                    {books.map((book: any) => (
+                        <BookCard key={book.key} book={book} />
+                    ))}
+                </div>
             </div>
 
             {books.length !== 0 && !isLoading && (
