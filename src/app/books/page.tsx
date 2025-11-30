@@ -39,6 +39,8 @@ export default function BooksPage() {
         }
     }, [page]);
 
+    if (isLoading) return <Loading />;
+
     return (
         <div className="min-h-screen p-6" ref={booksRef}>
             {!isLoading && (
@@ -48,8 +50,6 @@ export default function BooksPage() {
             )}
 
             {isError || (books.length <= 0 && <WoodenLibraryScene />)}
-
-            {isLoading && <Loading />}
 
             <div className="mt-12 min-h-[300px] flex justify-center items-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">

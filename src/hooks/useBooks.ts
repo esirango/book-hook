@@ -1,4 +1,3 @@
-// hooks/useBooks.ts
 import { fetcher } from "@/lib/fetcher";
 import useSWR from "swr";
 
