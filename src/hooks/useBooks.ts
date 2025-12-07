@@ -46,5 +46,5 @@ export function useBooks(query: string, page: number) {
         hasNextPage = page * ITEMS_PER_PAGE < total;
     }
 
-    return { books, isLoading, isError: !!error, hasNextPage, total };
+    return { books, isLoading, isError: error, hasNextPage, total };
 }

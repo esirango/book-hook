@@ -49,7 +49,7 @@ export default function BooksPage() {
                 />
             )}
 
-            {isError || (books.length <= 0 && <WoodenLibraryScene />)}
+            {isError || books.length <= 0 ? <WoodenLibraryScene /> : <></>}
 
             <div className="mt-12 min-h-[300px] flex justify-center items-center">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full">
